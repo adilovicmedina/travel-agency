@@ -13,4 +13,7 @@ class Tour extends Model
     public function country(){
         return $this->belongsTo(Country::class);
     }
+    public function location(){
+        return $this->belongsTo(Location::class);
+    }
 }

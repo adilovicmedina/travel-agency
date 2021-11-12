@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
         CountrySeeder::class,
         TourSeeder::class,
         ContinentSeeder::class,
+        LocationSeeder::class,
+        CategoryLocationSeeder::class,
+        CategorySeeder::class,
         ]);
     }
 }

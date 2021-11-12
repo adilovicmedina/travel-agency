@@ -7,16 +7,22 @@ use App\Models\Tour;
 
 class TourController extends Controller
 {
-      public function index()
+      public function index(Request $request)
     {
-        $getTourList = Tour::all();
-        return view('tours',compact('getTourList'));
+         $search = $request['search'] ?? "";
+        if ($search != ""){
+            $getTourList = Tour::where('name', 'LIKE', "%$search%")->get();
+            return view('pages.tours', compact('getTourList', 'search'));
+        }else{
+            $getTourList = Tour::all();
+             return view('pages.tours', compact('getTourList'));
+         }
     }
 
     public function show($id)
     {
         $tour = Tour::where('id', $id)
                 ->firstOrFail();
-        return view ('tour', compact('tour'));
+        return view ('pages.tour', compact('tour'));
     }
 }

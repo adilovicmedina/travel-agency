@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\ContinentController;
+use App\Http\Controllers\LocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,7 @@ use App\Http\Controllers\ContinentController;
 |
 */
 
-Route::get('/', [CountryController::class, 'index'])->name('index');
+Route::get('/', [CountryController::class, 'index'])->name('home');
 
 Route::get('/single-country/{id}', [CountryController::class, 'show'])->name('show');
 
@@ -26,5 +27,11 @@ Route::get('/tour/{id}', [TourController::class, 'show']);
 Route::get('/tours', [TourController::class, 'index']);
 
 Route::get('/continents', [ContinentController::class, 'index']);
+
+Route::get('/continent/{id}', [ContinentController::class, 'show']);
+
+Route::get('/locations', [LocationController::class, 'index']);
+
+Route::get('/location/{id}', [LocationController::class, 'show']);
 
 // Auth::routes();

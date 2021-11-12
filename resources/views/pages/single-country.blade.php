@@ -22,7 +22,7 @@
             </ul>
          </div>
          <div class="back">
-            <a href="{{ config('app.url')}}">Back</a>
+            <a href="{{ config('app.url')}}">Home</a>
          </div>
       </div>
    </div>

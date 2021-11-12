@@ -10,6 +10,13 @@ class ContinentController extends Controller
     public function index()
     {
         $continents = Continent::all();
-        return view('continents',compact('continents'));
+        return view('pages.continents',compact('continents'));
+    }
+
+    public function show($id)
+    {
+        $continent = Continent::where('id', $id)
+                ->firstOrFail();
+        return view ('pages.continent', compact('continent'));
     }
 }
