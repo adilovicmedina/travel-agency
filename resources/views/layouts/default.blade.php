@@ -5,7 +5,7 @@
 </head>
 <body>
 <div class="container">
-   <header class="row header-padding">
+   <header>
        @include('includes.header')
    </header>
    <div id="main" class="row">

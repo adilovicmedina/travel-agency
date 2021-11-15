@@ -168,5 +168,62 @@ ul{
 
 .header-flex {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+}
+
+.form-center{
+	display: flex !important;
+	flex-direction: column;
+	margin:auto;
+	margin-top: 30px;
+	background-color: #bbb;
+	padding: 20px;
+	width: 80%;
+	margin-bottom: 100px;
+	border-radius: 10px;
+}
+
+.form-center h2{
+	text-transform: uppercase;
+	text-align: center;
+	padding-bottom: 30px;
+}
+
+.form-center div{
+	display: flex;
+	flex-direction: column;
+}
+
+.form-center input{
+	width: 60%;
+	height: 40px;
+	margin-bottom: 20px !important;
+	border: none;
+}
+
+.form-center label, 
+.form-center input,
+.form-submit{
+	margin: 0 auto;
+}
+
+.form-center label{
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+.form-submit{
+	width: 30%;
+	outline: none;
+	border: none;
+	border-radius: 10px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	padding: 20px 0;
+	text-transform: uppercase;
+	font-weight: 700;
+}
+
+.account ul{
+	justify-content: flex-end;
 }

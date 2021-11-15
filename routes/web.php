@@ -6,6 +6,8 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\ContinentController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SessionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,5 +35,16 @@ Route::get('/continent/{id}', [ContinentController::class, 'show']);
 Route::get('/locations', [LocationController::class, 'index']);
 
 Route::get('/location/{id}', [LocationController::class, 'show']);
+
+Route::get('/register', [RegisterController::class, 'create'])->middleware('guest');
+
+Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
+
+Route::post('/login', [SessionsController::class, 'create']);
+
+Route::post('/logout', [SessionsController::class, 'destroy']);
+
+
+
 
 // Auth::routes();
