@@ -1,8 +1,9 @@
-@include('includes.head')
-<header class="container">@include('includes.header')</header>
-<div class="container tour">
-   <div class="tour__title">Tours: </div>
-   <div class="row">
+
+@extends('layouts.default')
+
+@section('title', 'Tours:')
+@section('content')
+
       <div class="col-12">
          <ul class="tour__list">
             @foreach ($getTourList as $key => $tour)
@@ -12,11 +13,9 @@
             </li>
             @endforeach
          </ul>
+        
          <div class="back">
             <a href="{{ config('app.url')}}">Home</a>
          </div>
       </div>
-   </div>
-</div>
-</div>
-@include('includes.footer')
+  @stop

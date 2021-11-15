@@ -9,7 +9,7 @@ class Continent extends Model
 {
     use HasFactory;
 protected $guarded=[];
-        public function countries(){
+    public function countries(){
         return $this->hasMany(Country::class);
     }
 }

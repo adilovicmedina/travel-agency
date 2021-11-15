@@ -79,28 +79,22 @@
 }
 
 
-.tour__items{
-	text-align: center;
-	/*margin-bottom: 100px;*/
-}
-
 .tour__items h4{
-	margin-bottom: 50px;
-}
-.tour__items--date{
-	display: flex;
-	justify-content: center;
+	margin-bottom: 20px;
 }
 
-.tour__items--date p{
+.tour__items--date p,
+.tour__items--location p{
 	font-weight: 500;
+	margin: 0;
 	margin-right: 20px;
+	margin-top: 20px;
 }
 
 .tour__list,
 .continent__list{
 	list-style: none;
-	margin:auto;
+	/*margin:auto;*/
 }
 
 .tour__list a,
@@ -113,6 +107,7 @@
 .continent__list a:hover{
 	color: #932D12;
 } 
+
 
 .continent__list li{
 	margin-bottom: 10px;
@@ -147,4 +142,31 @@ ul{
 
 .country__items--tour ul{
 	list-style: none;
+}
+
+.header-padding{
+	padding-bottom: 50px;
+}
+
+.title{
+	font-weight: 700;
+	text-transform: uppercase;
+	font-size: 25px;
+	margin-bottom: 20px;
+	padding: 0;
+}
+
+.navbar{
+	padding: 0;
+	padding-top: 20px;
+}
+
+
+.search {
+    margin-top: 30px;
+}
+
+.header-flex {
+    display: flex;
+    justify-content: space-around;
 }
