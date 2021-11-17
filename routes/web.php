@@ -8,6 +8,7 @@ use App\Http\Controllers\ContinentController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,14 +37,17 @@ Route::get('/locations', [LocationController::class, 'index']);
 
 Route::get('/location/{id}', [LocationController::class, 'show']);
 
-Route::get('/register', [RegisterController::class, 'create'])->middleware('guest');
+Route::get('/register', [RegisterController::class, 'create']);
 
-Route::post('/register', [RegisterController::class, 'store'])->middleware('guest');
+Route::post('/register', [RegisterController::class, 'store']);
 
-Route::post('/login', [SessionsController::class, 'create']);
+Route::get('/login', [SessionsController::class, 'create'])->name('login');
 
-Route::post('/logout', [SessionsController::class, 'destroy']);
+Route::post('/login/store', [SessionsController::class, 'login_store']);
 
+Route::post('/logout', [SessionsController::class, 'destroy'])->middleware('auth');
+
+Route::get('/admin/dashboard', [AdminController::class, 'create'])->middleware('admin');
 
 
 

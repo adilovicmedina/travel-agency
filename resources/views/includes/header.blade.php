@@ -8,7 +8,7 @@
         <div class="col-6 account">
                 <ul style="display: flex;justify-content: flex-end;">
                   @auth
-                    <li style="font-weight: 700; float: right; list-style: none; padding-right: 10px;">Welcome, {{ auth()->user()->name }}!</li>
+                    <li style="font-weight: 700; float: right; list-style: none; padding-right: 10px;">Welcome, {{ auth()->user()->username }}!</li>
                     <li style="list-style: none"><form method="POST" action="{{ config('app.url')}}/logout">
                         @csrf
 
