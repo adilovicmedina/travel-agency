@@ -63,7 +63,7 @@
 
 
                                     <a
-                                        href="{{ config('app.url') }}/dashboard/continents/locations/locations"><span>Locations</span></a>
+                                        href="{{ config('app.url') }}/dashboard/locations/locations"><span>Locations</span></a>
                                 </div>
                             </div>
                             <div class="overview-chart">
