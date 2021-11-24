@@ -21,13 +21,13 @@
          <div class="tour__items">   
          <div class="tour__items--location">
             <h4>Location:</h4>
-               <a href="{{ config('app.url')}}/location/{{$tour->location->id}}">{{$tour->location->name}} 
-            </a>
+               <!-- <a href="{{ config('app.url')}}/location/{{$tour->location->id}}">{{$tour->location->name}} 
+            </a> -->
             </div>    
          </div> 
       </div> 
          <div class="back">
-            <a href="{{ config('app.url')}}/single-country/{{$tour->country_id}}">Back</a>
+            <a href="{{ route('tours.index') }}">Back</a>
          </div>
       </div>
       

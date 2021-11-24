@@ -16,12 +16,13 @@
             </div>
             <div class="location__items--info">
             <h4>Coordinates:</h4>
-               {{$location->lantitude}} - {{$location->longitude}}
+               {{$location->latitude}} - {{$location->longitude}}
+               
             </div>        
          </div> 
       </div> 
          <div class="back">
-            <a href="{{ config('app.url')}}">Home</a>
+            <a href="{{ route('locations.index') }}">Home</a>
          </div>
       </div>
 

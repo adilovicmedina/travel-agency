@@ -10,7 +10,10 @@ class Country extends Model
 {
     use HasFactory;
     
-    protected $fillable=['name', 'continent', 'photo'];
+    protected $guarded=[];
+
+    protected $table = 'countries';
+
     public function tours(){
         return $this->hasMany(Tour::class);
     }

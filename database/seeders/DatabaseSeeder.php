@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
         LocationSeeder::class,
         CategoryLocationSeeder::class,
         CategorySeeder::class,
+        AdminSeeder::class,
+        UserSeeder::class,
+        RoleUserSeeder::class,
         ]);
     }
 }

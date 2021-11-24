@@ -1527,6 +1527,7 @@
     for (var i = 0; i < menu.length; i++) {
       $(menu[i]).on('click', function (e) {
         e.preventDefault();
+
         $('.js-right-sidebar').removeClass("show-sidebar");        
         if (jQuery.inArray(this, menu) == sub_menu_is_showed) {
           $(this).toggleClass('show-dropdown');
@@ -1579,8 +1580,8 @@
 
     });
  
-
-  Sublist Sidebar
+  
+  //Sublist Sidebar
   try {
     var arrow = $('.js-arrow');
     arrow.each(function () {

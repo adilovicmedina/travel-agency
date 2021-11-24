@@ -48,6 +48,8 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
     box-sizing: border-box;
 }
 
+
+
 ul {
     margin: 0;
 }
@@ -14648,4 +14650,10 @@ section {
 
 .vue-lists ul, .vue-lists ol {
     padding-left: 30px;
+}
+
+.page-container{
+    padding-left: 100px !important;
+    padding-right: 100px !important;
+    padding-bottom: 100px !important;
 }

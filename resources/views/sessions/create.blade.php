@@ -47,7 +47,7 @@
                             </a>
                         </div>
                         <div class="login-form">
-                            <form method="POST" action="{{ config('app.url') }}/login/store">
+                            <form method="POST" action="{{ config('app.url') }}/login">
                                 @csrf
                                 <div class="form-group">
                                     <label>Email Address</label>
@@ -65,7 +65,7 @@
                                 </div>
                                 <div class="login-checkbox">
                                     <label>
-                                        <input type="checkbox" name="remember" value="remember" id="remember">Remember Me
+                                        <input type="checkbox" name="remember" value="remember" id="remember"> {{ __('Remember me') }}
                                     </label>
                                     <label>
                                         <a href="#">Forgotten Password?</a>

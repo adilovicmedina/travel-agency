@@ -8,6 +8,15 @@ class AdminController extends Controller
 {
     public function create(){
 
-        return view('admin.create');
+        return view('pages.dashboard');
     }
+    
+
+    public function destroy(){
+        auth()->logout();
+
+        return redirect('/')->with('success', 'Goodbye!');
+    }
+
+
 }

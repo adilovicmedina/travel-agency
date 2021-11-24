@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class MustBeAdministrator
+class EnsureUserHasRole
 {
     /**
      * Handle an incoming request.
@@ -14,11 +14,12 @@ class MustBeAdministrator
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, string $role)
     {
-        if (auth()->user()->username !== 'medina'){
+            if ($request->user()->roles()->where('name', '=', $role)->exists()) {
+                return $next($request);
+            }
+    
             abort(403);
         }
-        return $next($request);
-    }
 }
