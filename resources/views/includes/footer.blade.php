@@ -15,14 +15,6 @@
 	        </div>
 	    </div>
 	</div>
-	</div>
-	</div>
-	</div>
-	<!-- END MAIN CONTENT-->
-	<!-- END PAGE CONTAINER-->
-	</div>
-
-	</div>
 
 	<!-- Jquery JS-->
 	<script src="vendor/jquery-3.2.1.min.js"></script>

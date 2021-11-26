@@ -82,4 +82,16 @@ class TourController extends Controller
         return redirect()->route('tours.index')
             ->withSuccess(__('Tour deleted successfully.'));
     }
+
+     public function upload(Request $request, Tour $tour)
+    {
+        if ($request->hasFile('photo')) {
+            $filename = $request->photo->getClientOriginalName();
+
+            $request->photo->storeAs('public/images/', $filename);
+            $country->update(['photo' => $filename]);
+        }
+        return redirect()->route('tours.edit');
+    }
+
 }

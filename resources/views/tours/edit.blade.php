@@ -51,19 +51,6 @@
                     @endif
                 </div>
                 <div class="mb-3">
-                    <label for="photo" class="form-label">photo</label>
-                    <input value="{{ $tour->photo }}" 
-                        type="text" 
-                        class="form-control" 
-                        name="photo" 
-                        value= "{{ old('photo') }}"
-                        placeholder="photo" required>
-
-                    @if ($errors->has('photo'))
-                        <span class="text-danger text-left">{{ $errors->first('photo') }}</span>
-                    @endif
-                </div>
-                <div class="mb-3">
                     <label for="country_id" class="form-label">Country id</label>
                     <input value="{{ $tour->country_id }}" 
                         type="text" 
