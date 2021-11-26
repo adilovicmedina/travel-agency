@@ -50,19 +50,15 @@
                         <span class="text-danger text-left">{{ $errors->first('longitude') }}</span>
                     @endif
                 </div>
-                <div class="mb-3">
-                    <label for="photo" class="form-label">photo</label>
-                    <input value="{{ $location->photo }}" 
-                        type="text" 
-                        class="form-control" 
-                        name="photo" 
-                        value= "{{ old('photo') }}"
-                        placeholder="photo" required>
+              <div class="mb-3">
+                <label for="photo" class="form-label">Photo</label>
+                <input value="{{ $location->photo }}" class="form-control" name="photo" type="file"
+                    value="{{ old('photo') }}" placeholder="photo" required>{{ old('photo') }}</input>
 
-                    @if ($errors->has('photo'))
-                        <span class="text-danger text-left">{{ $errors->first('photo') }}</span>
-                    @endif
-                </div>
+                @if ($errors->has('photo'))
+                <span class="text-danger text-left">{{ $errors->first('photo') }}</span>
+                @endif
+            </div>
                 <div class="mb-3">
                     <label for="country_id" class="form-label">Country id</label>
                     <input value="{{ $location->country_id }}" 

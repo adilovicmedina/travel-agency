@@ -9,11 +9,13 @@ class Tour extends Model
 {
     use HasFactory;
 
-    protected $guarded=[];
-    public function country(){
+    protected $guarded = [];
+    public function country()
+    {
         return $this->belongsTo(Country::class);
     }
-    public function location(){
+    public function location()
+    {
         return $this->belongsTo(Location::class);
     }
 }

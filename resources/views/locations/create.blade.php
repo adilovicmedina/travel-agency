@@ -52,18 +52,14 @@
                     @endif
                 </div>
                 <div class="mb-3">
-                    <label for="photo" class="form-label">photo</label>
-                    <input value="{{ old('photo') }}" 
-                        type="text" 
-                        class="form-control" 
-                        name="photo" 
-                        value= "{{ old('photo') }}"
-                        placeholder="photo" required>
+                <label for="photo" class="form-label">Photo</label>
+                <input class="form-control" name="photo" type="file"
+                    value="{{ old('photo') }}" placeholder="photo" required>{{ old('photo') }}</input>
 
-                    @if ($errors->has('photo'))
-                        <span class="text-danger text-left">{{ $errors->first('photo') }}</span>
-                    @endif
-                </div>
+                @if ($errors->has('photo'))
+                <span class="text-danger text-left">{{ $errors->first('photo') }}</span>
+                @endif
+            </div>
                 <div class="mb-3">
                     <label for="country_id" class="form-label">Country id</label>
                     <input value="{{ old('country_id') }}" 

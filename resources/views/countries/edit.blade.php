@@ -32,7 +32,7 @@
 
             <div class="mb-3">
                 <label for="photo" class="form-label">Photo</label>
-                <input value="{{ $country->photo }}" class="form-control" name="photo" type="text"
+                <input value="{{ $country->photo }}" class="form-control" name="photo" type="file"
                     value="{{ old('photo') }}" placeholder="photo" required>{{ old('photo') }}</input>
 
                 @if ($errors->has('photo'))

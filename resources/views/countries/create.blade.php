@@ -32,7 +32,7 @@
 
             <div class="mb-3">
                 <label for="photo" class="form-label">Photo</label>
-                <input class="form-control" name="photo" type="text" placeholder="photo" required>{{ old('photo') }}
+                <input class="form-control" name="photo" type="file" placeholder="photo" required>{{ old('photo') }}
 
                 @if ($errors->has('photo'))
                 <span class="text-danger text-left">{{ $errors->first('photo') }}</span>

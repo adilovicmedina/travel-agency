@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use DB;
+use Illuminate\Database\Seeder;
 
 class AdminSeeder extends Seeder
 {
@@ -17,10 +17,10 @@ class AdminSeeder extends Seeder
         DB::table('roles')->truncate();
 
         $roles = [
-           ['name' => 'admin'],
-           ['name' => 'user'],
-           ['name' => 'menager'],
-       ];
+            ['name' => 'admin'],
+            ['name' => 'user'],
+            ['name' => 'menager'],
+        ];
         DB::table('roles')->insert($roles);
     }
 }

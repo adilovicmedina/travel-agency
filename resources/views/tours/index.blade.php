@@ -38,7 +38,9 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                 
+                                    <div class="d-flex">
+            {!! $getTourList->links() !!}
+        </div>
                                 </div>
                             </div>
                         </div>

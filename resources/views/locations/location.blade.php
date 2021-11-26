@@ -17,6 +17,9 @@
             <h4>Coordinates:</h4>
             {{$location->latitude}} - {{$location->longitude}}
         </div>
+        <div>
+             <img src="{{ asset('images/' .$location->photo) }} ">
+        </div>
     </div>
 </div>
 <div class="back">

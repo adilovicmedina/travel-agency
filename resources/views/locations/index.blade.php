@@ -19,6 +19,7 @@
                                         <thead>
                                             <tr>
                                                 <th>name</th>
+                                                <th>photo</th>
                         
                                                 <th class="text-right">edit</th>
                                                 <th class="text-right">delete</th>
@@ -29,6 +30,7 @@
                                             <tr>
                                                 <td> 
                                                 {{ $location->name }}</td>
+                                                <td><img src="{{ asset('images/' .$location->photo) }} "></td>
                                                
                                                 
                                                 <td class="text-right" style="margin:auto;"> <a class="btn btn-primary btn-sm" href="{{ route('locations.edit', $location->id) }}">Edit</a></td>
@@ -39,7 +41,9 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                 
+                                    <div class="d-flex">
+            {!! $locations->links() !!}
+        </div>
                                 </div>
                             </div>
                         </div>

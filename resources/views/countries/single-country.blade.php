@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-12 country__items">
             <div class="country__items--img">
-                <img src="{{ asset($country->photo) }} ">
+                <img src="{{ asset('images/' .$country->photo) }} ">
             </div>
             <div class="country__items--about">
                 <h4>About country:</h4>

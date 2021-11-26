@@ -16,5 +16,6 @@
    <div class="back">
       <a href="{{ config('app.url')}}">Home</a>
    </div>
+    {{ $getTourList->links() }}
 </div>
 @endsection

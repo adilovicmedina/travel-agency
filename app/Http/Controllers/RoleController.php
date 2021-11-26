@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
-    function __construct()
+    public function __construct()
     {
 
     }
 
     public function index(Request $request)
-    {   
-        $roles = Role::orderBy('id','DESC')->paginate(5);
-        return view('users.create',compact('roles'))
+    {
+        $roles = Role::orderBy('id', 'DESC')->paginate(5);
+        return view('users.create', compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -31,7 +31,7 @@ class RoleController extends Controller
         $roles = Role::get();
         return view('roles.create', compact('roles'));
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -43,11 +43,11 @@ class RoleController extends Controller
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
         ]);
-    
+
         $role = Role::create(['name' => $request->get('name')]);
-    
+
         return redirect()->route('roles.index')
-                        ->with('success','Role created successfully');
+            ->with('success', 'Role created successfully');
     }
 
     /**
@@ -61,7 +61,7 @@ class RoleController extends Controller
         $role = $role;
         return view('roles.show', compact('role'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -73,7 +73,7 @@ class RoleController extends Controller
         $role = $role;
         return view('roles.edit', compact('role'));
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -86,11 +86,11 @@ class RoleController extends Controller
         $this->validate($request, [
             'name' => 'required',
         ]);
-        
+
         $role->update($request->only('name'));
-    
+
         return redirect()->route('roles.index')
-                        ->with('success','Role updated successfully');
+            ->with('success', 'Role updated successfully');
     }
 
     /**
@@ -103,7 +103,6 @@ class RoleController extends Controller
     {
         $role->delete();
         return redirect()->route('roles.index')
-                        ->with('success','Role deleted successfully');
+            ->with('success', 'Role deleted successfully');
     }
 }
-

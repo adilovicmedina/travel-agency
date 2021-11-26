@@ -27,7 +27,7 @@
                         </td>
                         <td><a href="{{ route('continents.show', $country->continent_id) }}">
                                 {{$country->continent->name}} </a></td>
-                        <td><img src="{{ asset($country->photo) }} "></td>
+                        <td><img src="{{ asset('images/' .$country->photo) }} "></td>
 
                         <td class="text-right" style="margin:auto;"><a class="btn btn-primary btn-sm"
                                 href="{{ route('countries.edit', $country->id) }}">Edit</a></td>
@@ -39,7 +39,9 @@
                     @endforeach
                 </tbody>
             </table>
-
+                <div class="d-flex">
+            {!! $getCountryList->links() !!}
+        </div>
         </div>
     </div>
 

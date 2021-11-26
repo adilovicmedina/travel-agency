@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use DB;
+use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
@@ -17,8 +17,8 @@ class UserSeeder extends Seeder
         DB::table('users')->truncate();
 
         $users = [
-           ['username' => 'admin', 'email' => 'admin1@gmail.com', 'password' => bcrypt('admin123')],
-       ];
+            ['username' => 'admin', 'email' => 'admin1@gmail.com', 'password' => bcrypt('admin123')],
+        ];
         DB::table('users')->insert($users);
     }
 }

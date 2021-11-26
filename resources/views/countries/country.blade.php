@@ -6,7 +6,7 @@
 <div class="col-6 country__items">
     <a href="single-country/{{$country->id}}">{{ $country->name }} - {{$country->continent->name}}
         <div>
-            <img src="{{ asset($country->photo) }} ">
+            <img src="{{ asset('images/' .$country->photo) }} ">
         </div>
     </a>
 

@@ -12,6 +12,7 @@
     <div class="back">
         <a href="{{ config('app.url')}}">Home</a>
     </div>
+     {{ $locations->links() }}
 </div>
 
 @endsection

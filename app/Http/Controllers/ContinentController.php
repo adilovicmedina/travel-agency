@@ -2,35 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Continent;
+use Illuminate\Http\Request;
 
 class ContinentController extends Controller
 {
     public function index()
     {
         $continents = Continent::all();
-        return view('continents.continents',compact('continents'));
+        return view('continents.continents', compact('continents'));
     }
 
     public function show($id)
     {
         $continent = Continent::where('id', $id)
-                ->firstOrFail();
-        return view ('continents.continent', compact('continent'));
+            ->firstOrFail();
+        return view('continents.continent', compact('continent'));
     }
 
     public function admin_index()
     {
         $continents = Continent::all();
-        return view('continents.index',compact('continents'));
+        return view('continents.index', compact('continents'));
     }
 
     public function admin_show($id)
     {
         $continent = Continent::where('id', $id)
-        ->firstOrFail();
-return view ('continents.show', compact('continent'));
+            ->firstOrFail();
+        return view('continents.show', compact('continent'));
     }
 
     public function create()
@@ -40,8 +40,10 @@ return view ('continents.show', compact('continent'));
 
     public function store(Request $request)
     {
-        Continent::create(array_merge($request->only('name')
-        ));
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+        Continent::create($request->all());
 
         return redirect()->route('continents.index')
             ->withSuccess(__('Continent created successfully.'));
@@ -50,7 +52,7 @@ return view ('continents.show', compact('continent'));
     public function edit(Continent $continent)
     {
         return view('continents.edit', [
-            'continent' => $continent
+            'continent' => $continent,
         ]);
     }
 

@@ -2,47 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Tour;
+use Illuminate\Http\Request;
 
 class TourController extends Controller
 {
-      public function index(Request $request)
+    public function index(Request $request)
     {
          $search = $request['search'] ?? "";
-        if ($search != ""){
-            $getTourList = Tour::where('name', 'LIKE', "%$search%")->get();
-            return view('tours.tours', compact('getTourList', 'search'));
-        }else{
-            $getTourList = Tour::all();
-             return view('tours.tours', compact('getTourList'));
-         }
-    }
+        if ($search != "") {
+            $getTourList = Tour::where('name', 'LIKE', "%$search%")
+                ->paginate(5);
+        } else {
+            $getTourList = Tour::paginate(5);
+        }
+            return view('tours.tours', compact('getTourList'));
+        }
 
     public function show($id)
     {
         $tour = Tour::where('id', $id)
-                ->firstOrFail();
-        return view ('tours.tour', compact('tour'));
+            ->firstOrFail();
+        return view('tours.tour', compact('tour'));
     }
 
     public function admin_index(Request $request)
     {
-         $search = $request['search'] ?? "";
-        if ($search != ""){
-            $getTourList = Tour::where('name', 'LIKE', "%$search%")->get();
-            return view('tours.index', compact('getTourList', 'search'));
-        }else{
-            $getTourList = Tour::all();
-             return view('tours.index', compact('getTourList'));
-         }
-    }
+         $getTourList = Tour::latest()->paginate(10);
+            return view('tours.index', compact('getTourList'));
+        }
 
     public function admin_show($id)
     {
         $tour = Tour::where('id', $id)
-                ->firstOrFail();
-        return view ('tours.show', compact('tour'));
+            ->firstOrFail();
+        return view('tours.show', compact('tour'));
     }
 
     public function create()
@@ -52,8 +46,15 @@ class TourController extends Controller
 
     public function store(Request $request)
     {
-        tour::create(array_merge($request->only('name', 'country_id', 'location_id', 'start_date', 'end_date')
-        ));
+        $this->validate($request, [
+            'name' => 'required',
+            'location_id' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'country_id' => 'required',
+        ]);
+
+        Tour::create($request->all());
 
         return redirect()->route('tours.index')
             ->withSuccess(__('Tour created successfully.'));
@@ -62,13 +63,13 @@ class TourController extends Controller
     public function edit(Tour $tour)
     {
         return view('tours.edit', [
-            'tour' => $tour
+            'tour' => $tour,
         ]);
     }
 
     public function update(Request $request, Tour $tour)
     {
-        $tour->update($request->only('name','start_date', 'end_date'));
+        $tour->update($request->only('name', 'start_date', 'end_date'));
 
         return redirect()->route('tours.index')
             ->withSuccess(__('Tour updated successfully.'));

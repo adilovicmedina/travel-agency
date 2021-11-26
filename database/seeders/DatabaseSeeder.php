@@ -14,15 +14,15 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-        CountrySeeder::class,
-        TourSeeder::class,
-        ContinentSeeder::class,
-        LocationSeeder::class,
-        CategoryLocationSeeder::class,
-        CategorySeeder::class,
-        AdminSeeder::class,
-        UserSeeder::class,
-        RoleUserSeeder::class,
+            CountrySeeder::class,
+            TourSeeder::class,
+            ContinentSeeder::class,
+            LocationSeeder::class,
+            CategoryLocationSeeder::class,
+            CategorySeeder::class,
+            AdminSeeder::class,
+            UserSeeder::class,
+            RoleUserSeeder::class,
         ]);
     }
 }

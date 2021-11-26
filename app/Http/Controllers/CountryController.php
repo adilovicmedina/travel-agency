@@ -2,43 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Country;
+use Illuminate\Http\Request;
 
 class CountryController extends Controller
 {
     public function index(Request $request)
-    
     {
         $search = $request['search'] ?? "";
-        if ($search != ""){
+        if ($search != "") {
             $getCountryList = Country::where('name', 'LIKE', "%$search%")
-                                        ->paginate(2);
-        }else{
+                ->paginate(2);
+        } else {
             $getCountryList = Country::paginate(2);
-         }
+        }
         return view('countries.country', compact('getCountryList', 'search'));
     }
 
     public function show($id)
     {
         $country = Country::where('id', $id)
-                ->firstOrFail();
-        return view ('countries.single-country', compact('country'));
+            ->firstOrFail();
+        return view('countries.single-country', compact('country'));
     }
 
     public function admin_index()
-    
     {
-            $getCountryList = Country::all();
+      $getCountryList = Country::latest()->paginate(10);
         return view('countries.index', compact('getCountryList'));
     }
 
     public function admin_show($id)
     {
         $country = Country::where('id', $id)
-                ->firstOrFail();
-        return view ('countries.show', compact('country'));
+            ->firstOrFail();
+        return view('countries.show', compact('country'));
     }
 
     public function create()
@@ -48,17 +46,23 @@ class CountryController extends Controller
 
     public function store(Request $request)
     {
-        Country::create(array_merge($request->only('name', 'continent_id', 'photo', 'about')
-    ));
+        $this->validate($request, [
+            'name' => 'required',
+            'continent_id' => 'required',
+            'about' => 'required',
+            'photo' => 'required',
+        ]);
+        Country::create($request->all());
 
         return redirect()->route('countries.index')
             ->withSuccess(__('Country created successfully.'));
+
     }
 
     public function edit(Country $country)
     {
         return view('countries.edit', [
-            'country' => $country
+            'country' => $country,
         ]);
     }
 
@@ -77,4 +81,16 @@ class CountryController extends Controller
         return redirect()->route('countries.index')
             ->withSuccess(__('Country deleted successfully.'));
     }
+
+    public function upload(Request $request, Country $country)
+    {
+        if ($request->hasFile('photo')) {
+            $filename = $request->photo->getClientOriginalName();
+
+            $request->photo->storeAs('public/images/', $filename);
+            $country->update(['photo' => $filename]);
+        }
+        return redirect()->route('countries.edit');
+    }
+
 }
