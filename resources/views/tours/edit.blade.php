@@ -23,44 +23,31 @@
                     @endif
                 </div>
                 <div class="mb-3">
-                    <label for="latitude" class="form-label">latitude</label>
-                    <input
-                    value="{{ $tour->latitude }}" 
-                        type="number" 
-                        class="form-control" 
-                        name="latitude" 
-                        value= "{{ old('latitude') }}"
-                        placeholder="latitude" required>
-
-                    @if ($errors->has('latitude'))
-                        <span class="text-danger text-left">{{ $errors->first('latitude') }}</span>
-                    @endif
-                </div>
-                <div class="mb-3">
-                    <label for="longitude" class="form-label">longitude</label>
-                    <input 
-                    value="{{ $tour->longitude }}" 
-                        type="number" 
-                        class="form-control" 
-                        name="longitude" 
-                        value= "{{ old('longitude') }}"
-                        placeholder="longitude" required>
-
-                    @if ($errors->has('longitude'))
-                        <span class="text-danger text-left">{{ $errors->first('longitude') }}</span>
-                    @endif
-                </div>
-                <div class="mb-3">
-                    <label for="country_id" class="form-label">Country id</label>
-                    <input value="{{ $tour->country_id }}" 
-                        type="text" 
-                        class="form-control" 
-                        name="country_id" 
-                        value= "{{ old('country_id') }}"
-                        placeholder="country_id" required>
+                    <label for="country_id" class="form-label">Country</label>
+                 <select class="form-control" 
+                        name="country_id" required>
+                   <option value="">Select country</option>
+                        @foreach($countries as $country)
+                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                        @endforeach
+                    </select>
 
                     @if ($errors->has('country_id'))
                         <span class="text-danger text-left">{{ $errors->first('country_id') }}</span>
+                    @endif
+                </div>
+
+                  <div class="mb-3">
+                    <label for="location_id" class="form-label">Location</label>
+                        <select class="form-control" 
+                        name="location_id" required>
+                   <option value="">Select location</option>
+                        @foreach($locations as $location)
+                            <option value="{{ $location->id }}">{{ $location->name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('location_id'))
+                        <span class="text-danger text-left">{{ $errors->first('location_id') }}</span>
                     @endif
                 </div>
 

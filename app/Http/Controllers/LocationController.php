@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\Location;
 use Illuminate\Http\Request;
 
@@ -39,7 +40,10 @@ class LocationController extends Controller
     }
     public function create()
     {
-        return view('locations.create');
+        return view('locations.create',
+                    [
+                    'countries' => Country::latest()->get(),
+                    ]);
     }
 
     public function store(Request $request)
@@ -60,7 +64,10 @@ class LocationController extends Controller
 
     public function edit(Location $location)
     {
-        return view('locations.edit', ['location' => $location]);
+        return view('locations.edit', [
+            'location' => $location,
+            'countries' => Country::latest()->get(),
+        ]);
     }
 
     public function update(Request $request, Location $location)

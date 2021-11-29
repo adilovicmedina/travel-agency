@@ -11,7 +11,7 @@ class Location extends Model
     protected $guarded = [];
     public function locations_country()
     {
-        return $this->belongsTo(Country::class);
+        return $this->belongsTo(Country::class, 'country_id');
     }
     public function locations_tours()
     {

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Location;
+use App\Models\Country;
 use App\Models\Tour;
 use Illuminate\Http\Request;
 
@@ -41,7 +43,10 @@ class TourController extends Controller
 
     public function create()
     {
-        return view('tours.create');
+        return view('tours.create',[
+            'countries' => Country::latest()->get(),
+            'locations' => Location::latest()->get(),
+        ]);
     }
 
     public function store(Request $request)
@@ -64,12 +69,14 @@ class TourController extends Controller
     {
         return view('tours.edit', [
             'tour' => $tour,
+            'countries' => Country::latest()->get(),
+            'locations' => Location::latest()->get(),
         ]);
     }
 
     public function update(Request $request, Tour $tour)
     {
-        $tour->update($request->only('name', 'start_date', 'end_date'));
+        $tour->update($request->only('name', 'start_date', 'end_date', 'country_id', 'location_id'));
 
         return redirect()->route('tours.index')
             ->withSuccess(__('Tour updated successfully.'));

@@ -53,21 +53,25 @@
                 </div>
                 <div class="mb-3">
                 <label for="photo" class="form-label">Photo</label>
-                <input class="form-control" name="photo" type="file"
-                    value="{{ old('photo') }}" placeholder="photo" required>{{ old('photo') }}</input>
+                <input class="form-control" 
+                    name="photo" 
+                    type="file"
+                    placeholder="photo" 
+                    required>
 
                 @if ($errors->has('photo'))
                 <span class="text-danger text-left">{{ $errors->first('photo') }}</span>
                 @endif
             </div>
                 <div class="mb-3">
-                    <label for="country_id" class="form-label">Country id</label>
-                    <input value="{{ old('country_id') }}" 
-                        type="text" 
-                        class="form-control" 
-                        name="country_id" 
-                        value= "{{ old('country_id') }}"
-                        placeholder="country_id" required>
+                    <label for="country_id" class="form-label">Country</label>
+                       <select class="form-control" 
+                        name="country_id" required>
+                   <option value="">Select country</option>
+                        @foreach($countries as $country)
+                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                        @endforeach
+                    </select>
 
                     @if ($errors->has('country_id'))
                         <span class="text-danger text-left">{{ $errors->first('country_id') }}</span>

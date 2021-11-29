@@ -40,8 +40,13 @@
             </div>
             <div class="mb-3">
                 <label for="continent_id" class="form-label">Continent</label>
-                <input class="form-control" name="continent_id" type="text" placeholder="continent_id" required>
-
+                <select class="form-control" 
+                        name="continent_id" required>
+                        <option value="">Select continent</option>
+                        @foreach($continents as $continent)
+                            <option value="{{ $continent->id }}">{{ $continent->name }}</option>
+                        @endforeach
+                    </select>
                 @if ($errors->has('continent_id'))
                 <span class="text-danger text-left">{{ $errors->first('continent_id') }}</span>
                 @endif

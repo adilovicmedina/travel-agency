@@ -11,6 +11,7 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\CookieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,7 @@ Route::get('/continent/{id}', [ContinentController::class, 'show']);
 Route::get('/locations', [LocationController::class, 'index']);
 
 Route::get('/location/{id}', [LocationController::class, 'show']);
+
 
 
 

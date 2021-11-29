@@ -24,26 +24,28 @@
                     @endif
                 </div>
                 <div class="mb-3">
-                    <label for="country_id" class="form-label">Country id</label>
-                    <input value= "{{ old('country_id') }}"
-                        type="number" 
-                        class="form-control" 
-                        name="country_id" 
-                        
-                        placeholder="country_id" required>
+                      <label for="country_id" class="form-label">Country</label>
+                  <select class="form-control" 
+                        name="country_id" required>
+                   <option value="">Select country</option>
+                        @foreach($countries as $country)
+                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                        @endforeach
+                    </select>
 
                     @if ($errors->has('country_id'))
                         <span class="text-danger text-left">{{ $errors->first('country_id') }}</span>
                     @endif
                 </div>
                 <div class="mb-3">
-                    <label for="location_id" class="form-label">Location id</label>
-                    <input value= "{{ old('location_id') }}"
-                        type="number" 
-                        class="form-control" 
-                        name="location_id" 
-                        placeholder="location_id" required>
-
+                    <label for="location_id" class="form-label">Location</label>
+                        <select class="form-control" 
+                        name="location_id" required>
+                   <option value="">Select location</option>
+                        @foreach($locations as $location)
+                            <option value="{{ $location->id }}">{{ $location->name }}</option>
+                        @endforeach
+                    </select>
                     @if ($errors->has('location_id'))
                         <span class="text-danger text-left">{{ $errors->first('location_id') }}</span>
                     @endif

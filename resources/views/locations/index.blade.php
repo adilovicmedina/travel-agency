@@ -20,6 +20,9 @@
                                             <tr>
                                                 <th>name</th>
                                                 <th>photo</th>
+                                                <th>country</th>
+                                                <th>latitude</th>
+                                                <th>longitude</th>
                         
                                                 <th class="text-right">edit</th>
                                                 <th class="text-right">delete</th>
@@ -28,11 +31,11 @@
                                         <tbody>
                                         @foreach ($locations as $key => $location)
                                             <tr>
-                                                <td> 
-                                                {{ $location->name }}</td>
+                                                <td> {{ $location->name }} </td>
                                                 <td><img src="{{ asset('images/' .$location->photo) }} "></td>
-                                               
-                                                
+                                                <td>{{$location->locations_country->name}}</td>
+                                                <td> {{ $location->latitude }} </td>
+                                                <td> {{ $location->longitude }} </td>
                                                 <td class="text-right" style="margin:auto;"> <a class="btn btn-primary btn-sm" href="{{ route('locations.edit', $location->id) }}">Edit</a></td>
                                                 <td class="text-right">{!! Form::open(['method' => 'DELETE','route' => ['locations.delete', $location->id],'style'=>'display:inline']) !!}
             {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}

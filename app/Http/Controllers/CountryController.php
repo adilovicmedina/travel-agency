@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
+use App\Models\Continent;
 use Illuminate\Http\Request;
+
+
 
 class CountryController extends Controller
 {
@@ -41,7 +44,10 @@ class CountryController extends Controller
 
     public function create()
     {
-        return view('countries.create');
+        return view('countries.create',
+                    [
+                    'continents' => Continent::latest()->get(),
+                    ]);
     }
 
     public function store(Request $request)
@@ -63,6 +69,7 @@ class CountryController extends Controller
     {
         return view('countries.edit', [
             'country' => $country,
+            'continents' => Continent::latest()->get(),
         ]);
     }
 

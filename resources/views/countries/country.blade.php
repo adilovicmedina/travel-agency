@@ -15,5 +15,6 @@
 @endforeach
 <div>
     {{ $getCountryList->links() }}
+    {{ Cookie::get('name') }}
 </div>
 @endsection

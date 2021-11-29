@@ -16,6 +16,8 @@
                                         <thead>
                                             <tr>
                                                 <th>name</th>
+                                                <th>country</th>
+                                                <th>location</th>
                                                 <th>start date</th>
                                                 <th>end date</th>
                                                 <th class="text-right">edit</th>
@@ -27,6 +29,8 @@
                                             <tr>
                                                 <td> 
                                                    <a href="{{ route('tours.show', $tour->id) }}"> {{ $tour->name }} </a></td>
+                                                   <td>{{$tour->country->name}}</td>
+                                                   <td>{{$tour->location->name}}</td>
                                                 <td> {{ $tour->start_date }}</td>
                                                 <td>{{ $tour->start_date }}</td>
                                                 
