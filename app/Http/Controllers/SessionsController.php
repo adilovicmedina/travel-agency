@@ -54,6 +54,7 @@ class SessionsController extends Controller
             ]);
 
         }
+
         return redirect('/')->with('success', 'Welcome back');
     }
     public function destroy()

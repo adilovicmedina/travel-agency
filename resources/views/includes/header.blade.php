@@ -18,8 +18,9 @@
                     </li>
 
                     @else
-                    <li style="list-style: none"><a href="{{ config('app.url') }}/register"
-                            style="font-weight: 700; float: right; list-style: none; ">Register</a></li>
+                    <li style="list-style: none">
+                        <a href="{{ config('app.url') }}/register" style="font-weight: 700; float: right; list-style: none; ">Register</a>
+                    </li>
                     <li style="list-style: none; padding-left: 10px;"><a href="{{ config('app.url') }}/login"
                             style="font-weight: 700; float: right; list-style: none; ">Login</a></li>
                     @endauth

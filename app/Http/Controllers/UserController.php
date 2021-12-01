@@ -52,11 +52,11 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('users.edit', [
-            'user' => $user,
-            'userRole' => $user->roles->pluck('name')->toArray(),
-            'roles' => Role::latest()->get(),
-        ]);
+        return view('users.edit',
+            ['user' => $user,
+                'userRole' => $user->roles->pluck('name')->toArray(),
+                'roles' => Role::latest()->get(),
+            ]);
     }
 
     public function update(User $user, UpdateUserRequest $request)
@@ -66,8 +66,7 @@ class UserController extends Controller
         DB::table('role_user')->where('user_id', $user->id)
             ->update([
                 'role_id' => $request->role,
-            ]
-            );
+            ]);
 
         return redirect()->route('users.index')
             ->withSuccess(__('User updated successfully.'));
@@ -80,4 +79,5 @@ class UserController extends Controller
         return redirect()->route('users.index')
             ->withSuccess(__('User deleted successfully.'));
     }
+
 }

@@ -11,10 +11,10 @@
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input value="{{ $tour->name }}" 
-                        type="text" 
-                        class="form-control" 
-                        name="name" 
+                    <input value="{{ $tour->name }}"
+                        type="text"
+                        class="form-control"
+                        name="name"
                         value= "{{ old('name') }}"
                         placeholder="name" required>
 
@@ -22,9 +22,22 @@
                         <span class="text-danger text-left">{{ $errors->first('name') }}</span>
                     @endif
                 </div>
+                   <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input value="{{ old('price') }}"
+                        type="number"
+                        class="form-control"
+                        name="price"
+                        placeholder="price" required>
+
+                    @if ($errors->has('price'))
+                        <span class="text-danger text-left">{{ $errors->first('price') }}</span>
+                    @endif
+                </div>
+
                 <div class="mb-3">
                     <label for="country_id" class="form-label">Country</label>
-                 <select class="form-control" 
+                 <select class="form-control"
                         name="country_id" required>
                    <option value="">Select country</option>
                         @foreach($countries as $country)
@@ -39,7 +52,7 @@
 
                   <div class="mb-3">
                     <label for="location_id" class="form-label">Location</label>
-                        <select class="form-control" 
+                        <select class="form-control"
                         name="location_id" required>
                    <option value="">Select location</option>
                         @foreach($locations as $location)

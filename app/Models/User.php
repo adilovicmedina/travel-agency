@@ -51,4 +51,10 @@ class User extends Authenticatable
     {
         return $this->roles()->where('role_id', 1)->first();
     }
+
+    public function reservations()
+    {
+        return $this->belongsTo(Reservation::class);
+    }
+
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Location;
 use App\Models\Country;
+use App\Models\Location;
 use App\Models\Tour;
 use Illuminate\Http\Request;
 
@@ -11,15 +11,15 @@ class TourController extends Controller
 {
     public function index(Request $request)
     {
-         $search = $request['search'] ?? "";
+        $search = $request['search'] ?? "";
         if ($search != "") {
             $getTourList = Tour::where('name', 'LIKE', "%$search%")
                 ->paginate(5);
         } else {
             $getTourList = Tour::paginate(5);
         }
-            return view('tours.tours', compact('getTourList'));
-        }
+        return view('tours.tours', compact('getTourList'));
+    }
 
     public function show($id)
     {
@@ -30,9 +30,9 @@ class TourController extends Controller
 
     public function admin_index(Request $request)
     {
-         $getTourList = Tour::latest()->paginate(10);
-            return view('tours.index', compact('getTourList'));
-        }
+        $getTourList = Tour::latest()->paginate(10);
+        return view('tours.index', compact('getTourList'));
+    }
 
     public function admin_show($id)
     {
@@ -43,7 +43,7 @@ class TourController extends Controller
 
     public function create()
     {
-        return view('tours.create',[
+        return view('tours.create', [
             'countries' => Country::latest()->get(),
             'locations' => Location::latest()->get(),
         ]);
@@ -90,7 +90,7 @@ class TourController extends Controller
             ->withSuccess(__('Tour deleted successfully.'));
     }
 
-     public function upload(Request $request, Tour $tour)
+    public function upload(Request $request, Tour $tour)
     {
         if ($request->hasFile('photo')) {
             $filename = $request->photo->getClientOriginalName();

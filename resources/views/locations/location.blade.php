@@ -1,6 +1,5 @@
 @extends('layouts.default')
 
-
 @section('title', $location->name)
 @section('content')
 
@@ -18,7 +17,7 @@
             {{$location->latitude}} - {{$location->longitude}}
         </div>
         <div>
-             <img src="{{ asset('images/' .$location->photo) }} ">
+            <img src="{{ asset('images/' .$location->photo) }} ">
         </div>
     </div>
 </div>

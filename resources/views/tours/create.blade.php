@@ -13,10 +13,10 @@
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input value="{{ old('name') }}" 
-                        type="text" 
-                        class="form-control" 
-                        name="name" 
+                    <input value="{{ old('name') }}"
+                        type="text"
+                        class="form-control"
+                        name="name"
                         placeholder="name" required>
 
                     @if ($errors->has('name'))
@@ -25,7 +25,7 @@
                 </div>
                 <div class="mb-3">
                       <label for="country_id" class="form-label">Country</label>
-                  <select class="form-control" 
+                  <select class="form-control"
                         name="country_id" required>
                    <option value="">Select country</option>
                         @foreach($countries as $country)
@@ -39,7 +39,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="location_id" class="form-label">Location</label>
-                        <select class="form-control" 
+                        <select class="form-control"
                         name="location_id" required>
                    <option value="">Select location</option>
                         @foreach($locations as $location)
@@ -52,10 +52,10 @@
                 </div>
                 <div class="mb-3">
                     <label for="start_date" class="form-label">Start date</label>
-                    <input value="{{ old('start_date') }}" 
-                        type="date" 
-                        class="form-control" 
-                        name="start_date" 
+                    <input value="{{ old('start_date') }}"
+                        type="date"
+                        class="form-control"
+                        name="start_date"
                         placeholder="start_date" required>
 
                     @if ($errors->has('start_date'))
@@ -64,14 +64,26 @@
                 </div>
                 <div class="mb-3">
                     <label for="end_date" class="form-label">End date</label>
-                    <input value="{{ old('end_date') }}" 
-                        type="date" 
-                        class="form-control" 
-                        name="end_date" 
+                    <input value="{{ old('end_date') }}"
+                        type="date"
+                        class="form-control"
+                        name="end_date"
                         placeholder="end_date" required>
 
                     @if ($errors->has('end_date'))
                         <span class="text-danger text-left">{{ $errors->first('end_date') }}</span>
+                    @endif
+                </div>
+                   <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input value="{{ old('price') }}"
+                        type="number"
+                        class="form-control"
+                        name="price"
+                        placeholder="price" required>
+
+                    @if ($errors->has('price'))
+                        <span class="text-danger text-left">{{ $errors->first('price') }}</span>
                     @endif
                 </div>
 

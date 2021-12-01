@@ -227,3 +227,11 @@ ul {
     font-size: 12px;
     text-align: center;
 }
+
+.reservations{
+    border: 1px solid #000;
+}
+
+.reservations td{
+    border: 1px solid #000;
+}

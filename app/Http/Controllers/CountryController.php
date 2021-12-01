@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Country;
 use App\Models\Continent;
+use App\Models\Country;
 use Illuminate\Http\Request;
-
-
 
 class CountryController extends Controller
 {
@@ -31,7 +29,7 @@ class CountryController extends Controller
 
     public function admin_index()
     {
-      $getCountryList = Country::latest()->paginate(10);
+        $getCountryList = Country::latest()->paginate(10);
         return view('countries.index', compact('getCountryList'));
     }
 
@@ -45,9 +43,9 @@ class CountryController extends Controller
     public function create()
     {
         return view('countries.create',
-                    [
-                    'continents' => Continent::latest()->get(),
-                    ]);
+            [
+                'continents' => Continent::latest()->get(),
+            ]);
     }
 
     public function store(Request $request)
