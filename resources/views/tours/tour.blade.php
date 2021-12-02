@@ -22,9 +22,6 @@
       <div style="margin-top: 50px;">
        <li style="list-style: none; ">
          <a style="font-size: 20px; padding: 10px;" class="btn btn-primary btn-sm" href="{{ route('reservations.create', $tour->id) }}">Reserve</a>
-           @if (!Auth::guest())
-         <p style="margin-top: 20px;"><a href="{{ route('reservations.index', Auth::id()) }}" class="btn btn-primary btn-sm">See your reservation</a></p>
-         @endif
       </li>
       </div>
    </div>

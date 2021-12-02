@@ -50,13 +50,11 @@
                                                 <i class="zmdi zmdi-money-box"></i>Billing</a>
                                         </div>
                                     </div>
-                                    <div class="account-dropdown__footer">
-                                        <a href="{{ config('app.url')}}/logout">
-                                            <form method="POST" action="{{ config('app.url')}}/dashboard/logout">
+                                    <div class="account-dropdown__footer" style="margin-left: 30px; padding: 20px 0;">
+                                            <form method="POST" action="{{ config('app.url')}}/logout">
                                                 @csrf
-                                                <i class="zmdi zmdi-power"></i><button type="submit">Logout</button>
+                                                <i class="zmdi zmdi-power" style="padding-right: 10px;"></i><button type="submit">Logout</button>
                                             </form>
-                                        </a>
                                     </div>
                                 </div>
                             </div>

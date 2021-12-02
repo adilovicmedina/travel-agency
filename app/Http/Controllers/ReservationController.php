@@ -50,16 +50,39 @@ class ReservationController extends Controller
                 ->withSuccess(__("Number of people can't be over 10."));
         }
 
-        $reservation = Reservation::create([
-            'number_of_people' => $number_of_people,
-            'tour_id' => $tour->id,
-            'user_id' => Auth::id(),
-            'total_price' => $tour->price * $number_of_people,
-        ]);
+        if (Auth::guest()) {
 
-        return redirect()
-            ->route('tours.tour', $tour->id)
-            ->withSuccess(__('Reservation created successfully.'));
+            $id = DB::table('users')->insertGetId([
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+            ]);
+
+            $reservation = Reservation::create([
+                'number_of_people' => $number_of_people,
+                'tour_id' => $tour->id,
+                'user_id' => $id,
+                'total_price' => $tour->price * $number_of_people,
+            ]);
+
+            Auth::loginUsingId($id);
+
+            return redirect()
+                ->route('tours.tour', $tour->id)
+                ->withSuccess(__("Reservation created successfully."));
+
+        } else {
+            $reservation = Reservation::create([
+                'number_of_people' => $number_of_people,
+                'tour_id' => $tour->id,
+                'user_id' => Auth::id(),
+                'total_price' => $tour->price * $number_of_people,
+            ]);
+            return redirect()
+                ->route('tours.tour', $tour->id)
+                ->withSuccess(__('Reservation created successfully.'));
+
+        }
     }
 
     public function edit(User $user, Reservation $reservation, Tour $tour)

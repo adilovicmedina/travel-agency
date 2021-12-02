@@ -33,6 +33,9 @@
                 <li><a href="{{ config('app.url') }}/tours">Tours</a></li>
                 <li><a href="{{ config('app.url') }}/continents">Continents</a></li>
                 <li><a href="{{ config('app.url') }}/locations">Locations</a></li>
+                  @if (!Auth::guest())
+         <p><a href="{{ route('reservations.index', Auth::id()) }}" class="btn btn-primary btn-sm">See your reservation</a></p>
+         @endif
             </ul>
             <div class="search">
                 <form method="GET" action="">
