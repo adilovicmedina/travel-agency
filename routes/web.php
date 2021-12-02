@@ -60,7 +60,12 @@ Route::get('/reservations/{tour}/create', [ReservationController::class, 'create
     ->name('reservations.create');
 Route::post('/reservations/{tour}/create', [ReservationController::class, 'store'])
     ->name('reservations.store');
-Route::delete('/reservations/{user}/delete', [ReservationController::class, 'delete'])
+Route::get('/reservations/{user}/{reservation}/{tour}/edit', [ReservationController::class, 'edit'])
+    ->name('reservations.edit');
+Route::post('/reservations/{user}/{reservation}/{tour}/update', [ReservationController::class, 'update'])
+    ->name('reservations.update');
+
+Route::delete('/reservations/{user}/{reservation}/delete', [ReservationController::class, 'delete'])
     ->name('reservations.delete');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
