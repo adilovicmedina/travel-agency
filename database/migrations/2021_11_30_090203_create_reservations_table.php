@@ -15,10 +15,13 @@ class CreateReservationsTable extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tour_id')->onDelete('cascade');
-            $table->foreignId('user_id')->onDelete('cascade');
+            $table->foreignId('tour_id');
+            $table->foreignId('user_id');
             $table->integer('number_of_people');
+            $table->integer('number_of_children');
             $table->double('total_price')->default(0);
+            $table->text('special_wishes')->default("");
+
             $table->timestamps();
         });
     }

@@ -27,6 +27,10 @@
                 <a href="{{ config('app.url') }}/dashboard/locations/locations">
                     <i class="fas fa-calendar-alt"></i>Locations</a>
             </li>
+            <li>
+                <a href="{{ config('app.url') }}/dashboard/reservations/reservations">
+                    <i class="fas fa-calendar-alt"></i>Reservations</a>
+            </li>
         </ul>
     </nav>
 </div>

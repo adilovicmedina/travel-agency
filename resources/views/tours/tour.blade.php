@@ -7,6 +7,12 @@
 <div class="col-6">
    <div class="tour__items">
       <h4>About tour:</h4>
+       <div class="tour__items--date">
+          <h6>Special possibility</h6>
+         @foreach ((unserialize($tour->special_wishes)) as $t)
+          <li>{{ $t['name'] }}</li>
+          @endforeach
+      </div>
       <div class="tour__items--date">
          <p>Start date: </p>
          {{$tour->start_date}}
@@ -21,7 +27,7 @@
       </div>
       <div style="margin-top: 50px;">
        <li style="list-style: none; ">
-         <a style="font-size: 20px; padding: 10px;" class="btn btn-primary btn-sm" href="{{ route('reservations.create', $tour->id) }}">Reserve</a>
+         <a style="font-size: 20px; padding: 10px;" class="btn btn-primary btn-sm" href="{{ route('reservations.create',  $tour->id) }}">Reserve</a>
       </li>
       </div>
    </div>

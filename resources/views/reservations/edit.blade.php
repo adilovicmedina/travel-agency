@@ -11,12 +11,33 @@
                             <form method="POST" action="{{ route('reservations.update', ['user'=>$user->id, 'reservation'=>$reservation->id, 'tour'=>$tour->id]) }}" style="padding: 30px;">
                             	@csrf
                                 <div class="form-group">
-                                    <label>Number of people</label>
-                                    <input value="{{ old('number_of_people') }}" class="au-input au-input--full" type="number" name="number_of_people" placeholder="number of people" id="number_of_people" value= "{{ old('number_of_people') }}" required>
+                                    <label>Number of adults</label>
+                                    <input
+                                    value="{{ $reservation->number_of_people }}"
+                                    class="au-input au-input--full"
+                                    type="number"
+                                    name="number_of_people"
+                                     placeholder="Number of people"
+                                     id="number_of_people"
+                                     value= "{{ old('number_of_people') }}" required>
                                     @error('number_of_people')
 										<p>{{ $message }}</p>
 									@enderror
                                 </div>
+                                <div class="form-group">
+                                    <label>Number of children</label>
+                                    <input
+                                    value="{{ $reservation->number_of_children }}"
+                                    class="au-input au-input--full"
+                                    type="number"
+                                    name="number_of_children"
+                                    placeholder="Number of children"
+                                    id="number_of_children"
+                                    value= "{{ old('number_of_children') }}" required>
+                                    @error('number_of_children')
+										<p>{{ $message }}</p>
+									@enderror
+</div>
 
                                 <button type="submit" class="btn btn-primary">Save changes</button>
                                 <a href="{{ route('reservations.index', Auth::id()) }}">Back</a>

@@ -1,15 +1,9 @@
+@extends('layouts.default')
 
+@section('content')
 
-
-@extends('layouts.app')
-
-@section('dashboard_content')
-
-    <div class="bg-light p-4 rounded" style="width: 70%; margin: 200px auto;">
-        <h1>Show user</h1>
-        <div class="lead">
-
-        </div>
+    <div class="bg-light p-4 rounded" style="width: 70%; margin: 50px auto;">
+        <h1>Your profile</h1>
 
         <div class="container mt-4">
              <div>
@@ -35,8 +29,7 @@
             </div>
         </div>
         <div class="mt-4">
-        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info">Edit</a>
-        <a href="{{ route('users.index') }}" class="btn btn-default">Back</a>
+         <p><a href="{{ route('reservations.index', Auth::id()) }}" class="btn btn-primary btn-sm">See your reservation</a></p>
     </div>
     </div>
 

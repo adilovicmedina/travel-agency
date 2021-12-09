@@ -7,18 +7,49 @@
                     <div class="login-content" style="margin-top: 50px; padding: 50px 100px;">
                         <div class="login-form" style="border: 1px solid black;">
                         <h2 style="padding-left: 20px; padding-top: 20px;">RESERVATION</h2>
-                            <form method="POST" action="{{ route('reservations.store', $tour->id) }}" style="padding: 30px;">
+                            <form method="POST" action="{{ route('reservations.checkout', $tour->id) }}" style="padding: 30px;">
                             	@csrf
                                 @if (!Auth::guest())
                                 <div class="form-group">
-                                    <label>Number of people</label>
-                                    <input class="au-input au-input--full" type="number" name="number_of_people" placeholder="Number of people" id="number_of_people" value= "{{ old('number_of_people') }}" required>
+                                    <label>Number of adults</label>
+                                    <input
+                                    class="au-input au-input--full"
+                                    type="number"
+                                    name="number_of_people"
+                                    placeholder="Number of people"
+                                    id="number_of_people"
+                                    value= "{{ old('number_of_people') }}" required>
                                     @error('number_of_people')
 										<p>{{ $message }}</p>
 									@enderror
                                 </div>
+                                  <div class="form-group">
+                                    <label>Number of children</label>
+                                    <input class="au-input au-input--full"
+                                    type="number"
+                                    name="number_of_children"
+                                    placeholder="Number of children"
+                                    id="number_of_children"
+                                    value= "{{ old('number_of_children') }}" required>
+                                    @error('number_of_children')
+										<p>{{ $message }}</p>
+									@enderror
+                                </div>
+                                <div class="mb-3">
+                                    <p><label for="special_wishes" class="form-label">Special</label></p>
+                                     @foreach ((unserialize($tour->special_wishes)) as $t)
+                                    <input value="{{ $t['name'] }}"
+                                                type="checkbox"
+                                                name="special_wishes[]">{{ $t['name'] }}
+                                    @endforeach
+                                </div>
 
-                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">RESERVE</button>
+                    @if ($errors->has('special_wishes'))
+                        <span class="text-danger text-left">{{ $errors->first('special_wishes') }}</span>
+                    @endif
+                </div>
+ <a style="font-size: 20px; padding: 10px;" class="btn btn-primary btn-sm" href="{{ route('reservations.checkout', $tour->id) }}">Checkout</a>
+                                <!-- <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">RESERVE</button> -->
                             </form>
                             <div class="register-link" style="padding: 30px;">
                                 <p>
@@ -40,9 +71,16 @@
                             <form method="POST" action="{{ route('reservations.store', $tour->id) }}" style="padding: 30px;">
                             	@csrf
                                       <div class="form-group">
-                                    <label>Name</label>
-                                    <input class="au-input au-input--full" type="text" name="name" id="name" placeholder="name" value= "{{ old('name') }}" required>
-                                    @error('name')
+                                    <label>First name</label>
+                                    <input class="au-input au-input--full" type="text" name="first_name" id="first_name" placeholder="First name" value= "{{ old('first_name') }}" required>
+                                    @error('first_name')
+										<p>{{ $message }}</p>
+									@enderror
+                                </div>
+                                 <div class="form-group">
+                                    <label>Last name</label>
+                                    <input class="au-input au-input--full" type="text" name="last_name" id="last_name" placeholder="Last name" value= "{{ old('last_name') }}" required>
+                                    @error('last_name')
 										<p>{{ $message }}</p>
 									@enderror
                                 </div>
@@ -60,6 +98,13 @@
 										<p>{{ $message }}</p>
 									@enderror
                                 </div>
+                                  <div class="form-group">
+                                    <label>Phone</label>
+                                    <input class="au-input au-input--full" type="number" name="phone" placeholder="phone" id="phone" value= "{{ old('phone') }}" required>
+                                    @error('phone')
+										<p>{{ $message }}</p>
+									@enderror
+                                </div>
                                 <div class="form-group">
                                     <label>Password</label>
                                     <input class="au-input au-input--full" type="password" name="password" id="password" placeholder="Password" required>
@@ -68,14 +113,32 @@
 									@enderror
                                 </div>
                                 <div class="form-group">
-                                    <label>Number of people</label>
+                                    <label>Adults</label>
                                     <input class="au-input au-input--full" type="number" name="number_of_people" placeholder="Number of people" id="number_of_people" value= "{{ old('number_of_people') }}" required>
                                     @error('number_of_people')
 										<p>{{ $message }}</p>
 									@enderror
                                 </div>
+                                 <div class="form-group">
+                                    <label>Children</label>
+                                    <input class="au-input au-input--full" type="number" name="number_of_children" placeholder="Number of children" id="number_of_children" value= "{{ old('number_of_children') }}" required>
+                                    @error('number_of_children')
+										<p>{{ $message }}</p>
+									@enderror
+                                </div>
+                                 <div class="mb-3">
+                    <label for="special_wishes" class="form-label">Special</label>
+                    <input value="{{ old('special_wishes') }}"
+                        type="number"
+                        class="form-control"
+                        name="special_wishes"
+                        placeholder="special_wishes" required>
 
-                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">RESERVE</button>
+                    @if ($errors->has('special_wishes'))
+                        <span class="text-danger text-left">{{ $errors->first('special_wishes') }}</span>
+                    @endif
+                </div>
+                                <!-- <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">RESERVE</button> -->
                             </form>
                             <div class="register-link" style="padding: 30px;">
                                 <p>

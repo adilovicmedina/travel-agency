@@ -16,25 +16,12 @@
                         class="form-control"
                         name="name"
                         value= "{{ old('name') }}"
-                        placeholder="name" required>
+                        placeholder="Name" required>
 
                     @if ($errors->has('name'))
                         <span class="text-danger text-left">{{ $errors->first('name') }}</span>
                     @endif
                 </div>
-                   <div class="mb-3">
-                    <label for="price" class="form-label">Price</label>
-                    <input value="{{ old('price') }}"
-                        type="number"
-                        class="form-control"
-                        name="price"
-                        placeholder="price" required>
-
-                    @if ($errors->has('price'))
-                        <span class="text-danger text-left">{{ $errors->first('price') }}</span>
-                    @endif
-                </div>
-
                 <div class="mb-3">
                     <label for="country_id" class="form-label">Country</label>
                  <select class="form-control"
@@ -61,6 +48,30 @@
                     </select>
                     @if ($errors->has('location_id'))
                         <span class="text-danger text-left">{{ $errors->first('location_id') }}</span>
+                    @endif
+                </div>
+                 <div class="mb-3">
+                    <label for="price" class="form-label">Price/label>
+                    <input value="{{ old('price') }}"
+                        type="number"
+                        class="form-control"
+                        name="price"
+                        placeholder="Price" required>
+
+                    @if ($errors->has('price'))
+                        <span class="text-danger text-left">{{ $errors->first('price') }}</span>
+                    @endif
+                </div>
+                 <div class="mb-3">
+                    <label for="price" class="form-label">Price for children/label>
+                    <input value="{{ old('price_for_children') }}"
+                        type="number"
+                        class="form-control"
+                        name="Price for children"
+                        placeholder="price_for_children" required>
+
+                    @if ($errors->has('price_for_children'))
+                        <span class="text-danger text-left">{{ $errors->first('price_for_children') }}</span>
                     @endif
                 </div>
 

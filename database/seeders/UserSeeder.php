@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
         DB::table('users')->truncate();
 
         $users = [
-            ['username' => 'admin', 'email' => 'admin1@gmail.com', 'password' => bcrypt('admin123')],
+            ['first_name' => 'Admin', 'last_name' => 'Admin', 'username' => 'admin', 'email' => 'admin1@gmail.com', 'phone' => 0000000, 'password' => bcrypt('admin123')],
         ];
         DB::table('users')->insert($users);
     }

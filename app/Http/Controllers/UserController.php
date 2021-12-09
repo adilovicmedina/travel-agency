@@ -29,15 +29,18 @@ class UserController extends Controller
     public function store(User $user, StoreUserRequest $request)
     {
         $user = User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'phone' => $request->phone,
             'username' => $request->username,
             'email' => $request->email,
             'password' => $request->password,
         ]);
+
         DB::table('role_user')->insert([
             'user_id' => $user->id,
             'role_id' => $request->role,
-        ]
-        );
+        ]);
 
         return redirect()->route('users.index')
             ->withSuccess(__('User created successfully.'));
@@ -46,6 +49,13 @@ class UserController extends Controller
     public function show(User $user)
     {
         return view('users.show', [
+            'user' => $user,
+        ]);
+    }
+
+    public function show_user(User $user)
+    {
+        return view('users.show_user', [
             'user' => $user,
         ]);
     }

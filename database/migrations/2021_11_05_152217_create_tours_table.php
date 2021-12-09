@@ -21,6 +21,8 @@ class CreateToursTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->float('price')->default(0);
+            $table->float('price_for_children')->default(0);
+            $table->string('special_wishes')->default("");
             $table->timestamps();
         });
     }

@@ -30,3 +30,13 @@
 
 <!-- Main CSS-->
 <link href="{{  asset('css/theme.css') }}" rel="stylesheet" media="all">
+   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+        $(document).ready(function(){
+	var inputIdx = 0;
+	$("#save-special").on('click', function(){
+		$('#new').append('<label>Special</label><input type="text" name="special_name[]" class="form-control input-special" placeholder="Special name"> @if ($errors->has("special_name")) <span class="text-danger text-left">{{ $errors->first("special_name") }}</span> @endif <div style="margin: 30px 0;"><input type="number" class="form-control input-special" name="special_price[]" placeholder="Special price"></div>');
+	});
+});
+
+</script>

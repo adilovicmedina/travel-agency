@@ -34,7 +34,7 @@
                 <li><a href="{{ config('app.url') }}/continents">Continents</a></li>
                 <li><a href="{{ config('app.url') }}/locations">Locations</a></li>
                   @if (!Auth::guest())
-         <p><a href="{{ route('reservations.index', Auth::id()) }}" class="btn btn-primary btn-sm">See your reservation</a></p>
+         <p><a href="{{ route('users.show_user', Auth::id()) }}" class="btn btn-primary btn-sm">Your profile</a></p>
          @endif
             </ul>
             <div class="search">

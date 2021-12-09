@@ -17,7 +17,7 @@
                         type="text"
                         class="form-control"
                         name="name"
-                        placeholder="name" required>
+                        placeholder="Name" required>
 
                     @if ($errors->has('name'))
                         <span class="text-danger text-left">{{ $errors->first('name') }}</span>
@@ -75,17 +75,53 @@
                     @endif
                 </div>
                    <div class="mb-3">
-                    <label for="price" class="form-label">Price</label>
+                    <label for="price" class="form-label">Price for adults</label>
                     <input value="{{ old('price') }}"
                         type="number"
                         class="form-control"
                         name="price"
-                        placeholder="price" required>
+                        placeholder="Price" required>
 
                     @if ($errors->has('price'))
                         <span class="text-danger text-left">{{ $errors->first('price') }}</span>
                     @endif
                 </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price for children</label>
+                    <input value="{{ old('price') }}"
+                        type="number"
+                        class="form-control"
+                        name="price_for_children"
+                        placeholder="Price for children" required>
+
+                    @if ($errors->has('price_for_children'))
+                        <span class="text-danger text-left">{{ $errors->first('price_for_children') }}</span>
+                    @endif
+                </div>
+                <div class="mb-3">
+                    <label for="special_name" class="form-label">Special</label>
+                    <input type="text"
+                        class="form-control input-special"
+                        name="special_name[]"
+                        placeholder="Special name">
+                        @if ($errors->has('special_name'))
+                            <span class="text-danger text-left">{{ $errors->first('special_name') }}</span>
+                        @endif
+                        <div style="margin: 30px 0;">
+                        <input type="number"
+                        class="form-control input-special"
+                        name="special_price[]"
+                        placeholder="Special price">
+                        </div>
+                        <div id="new"></div>
+
+                        <button type="button" id="save-special" style="background-color: red; padding: 5px 15px; border-radius: 3px; color: #fff;">Add input</button>
+
+                        @if ($errors->has('special_price'))
+                            <span class="text-danger text-left">{{ $errors->first('special_price') }}</span>
+                        @endif
+                </div>
+
 
                 <button type="submit" class="btn btn-primary">Save</button>
                 <a href="{{ route('tours.index') }}" class="btn btn-default">Back</a>

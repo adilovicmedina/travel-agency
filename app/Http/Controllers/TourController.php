@@ -51,15 +51,42 @@ class TourController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required',
             'location_id' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
             'country_id' => 'required',
+            'price' => 'required',
+            'price_for_children' => 'required',
         ]);
+        $name = $request->name;
+        $location_id = $request->location_id;
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        $country_id = $request->country_id;
+        $price = $request->price;
+        $price_for_children = $request->price_for_children;
+        $special_name = $request->special_name;
+        $special_price = $request->special_price;
 
-        Tour::create($request->all());
+        for ($i = 0; $i < count($special_name); $i++) {
+
+            $special_wishes[] = ['name' => $special_name[$i], 'price' => $special_price[$i]];
+
+        }
+        $special_wishes_serialize = serialize($special_wishes);
+
+        Tour::create([
+            'name' => $name,
+            'location_id' => $location_id,
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'country_id' => $country_id,
+            'price' => $price,
+            'price_for_children' => $price_for_children,
+            'special_wishes' => $special_wishes_serialize,
+        ]);
 
         return redirect()->route('tours.index')
             ->withSuccess(__('Tour created successfully.'));
@@ -76,7 +103,7 @@ class TourController extends Controller
 
     public function update(Request $request, Tour $tour)
     {
-        $tour->update($request->only('name', 'start_date', 'end_date', 'country_id', 'location_id'));
+        $tour->update($request->only('name', 'start_date', 'end_date', 'country_id', 'location_id', 'special_wishes'));
 
         return redirect()->route('tours.index')
             ->withSuccess(__('Tour updated successfully.'));

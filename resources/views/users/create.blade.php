@@ -12,9 +12,16 @@
                             <form method="POST" action="{{ route('users.store') }}">
                             	@csrf
                                 <div class="form-group">
-                                    <label>Name</label>
-                                    <input class="au-input au-input--full" type="text" name="name" id="name" placeholder="name" value= "{{ old('name') }}" required>
-                                    @error('name')
+                                    <label>First name</label>
+                                    <input class="au-input au-input--full" type="text" name="first_name" id="first_name" placeholder="First name" value= "{{ old('first_name') }}" required>
+                                    @error('first_name')
+										<p>{{ $message }}</p>
+									@enderror
+                                </div>
+                                 <div class="form-group">
+                                    <label>Last name</label>
+                                    <input class="au-input au-input--full" type="text" name="last_name" id="last_name" placeholder="Last name" value= "{{ old('last_name') }}" required>
+                                    @error('last_name')
 										<p>{{ $message }}</p>
 									@enderror
                                 </div>
@@ -26,22 +33,28 @@
 									@enderror
                                 </div>
                                 <div class="form-group">
-                    <label for="role" class="form-label">Role</label>
-                    <select class="form-control" 
-                        name="role" required>
-                        <option value="">Select role</option>
-                        @foreach($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->name }}</option>
-                        @endforeach
-                    </select>
-                    @if ($errors->has('role'))
-                        <span class="text-danger text-left">{{ $errors->first('role') }}</span>
-                    @endif
-                </div>
+                                    <label for="role" class="form-label">Role</label>
+                                    <select class="form-control" name="role" required>
+                                        <option value="">Select role</option>
+                                        @foreach($roles as $role)
+                                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                        @endforeach
+                                    </select>
+                                     @if ($errors->has('role'))
+                                        <span class="text-danger text-left">{{ $errors->first('role') }}</span>
+                                    @endif
+                                </div>
                                 <div class="form-group">
                                     <label>Email Address</label>
                                     <input class="au-input au-input--full" type="email" name="email" placeholder="Email" id="email" value= "{{ old('email') }}" required>
                                     @error('email')
+										<p>{{ $message }}</p>
+									@enderror
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone</label>
+                                    <input class="au-input au-input--full" type="number" name="phone" id="phone" placeholder="Phone" value= "{{ old('phone') }}" required>
+                                    @error('phone')
 										<p>{{ $message }}</p>
 									@enderror
                                 </div>

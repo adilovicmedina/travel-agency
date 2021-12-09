@@ -21,6 +21,7 @@
                     <th>start date</th>
                     <th>end date</th>
                     <th>price</th>
+                    <th>price for children</th>
                     <th class="text-right">edit</th>
                     <th class="text-right">delete</th>
                 </tr>
@@ -36,6 +37,8 @@
                     <td> {{ $tour->start_date }}</td>
                     <td>{{ $tour->end_date }}</td>
                       <td>{{ $tour->price }}</td>
+                      <td>{{ $tour->price_for_children }}</td>
+
                     <td class="text-right" style="margin:auto;">
                         <a class="btn btn-primary btn-sm" href="{{ route('tours.edit', $tour->id) }}">Edit</a>
                     </td>

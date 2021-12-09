@@ -54,19 +54,23 @@ Route::post('/login', [SessionsController::class, 'store'])
 Route::post('/logout', [SessionsController::class, 'destroy'])
     ->name('logout.perform');
 
+Route::get('/{user}/show', [UserController::class, 'show_user'])
+    ->name('users.show_user');
+
 Route::get('/reservations/{user}', [ReservationController::class, 'index'])
     ->name('reservations.index');
 Route::get('/reservations/{tour}/create', [ReservationController::class, 'create'])
     ->name('reservations.create');
-Route::post('/reservations/{tour}/create', [ReservationController::class, 'store'])
+Route::post('/reservations/{tour}/store', [ReservationController::class, 'store'])
     ->name('reservations.store');
 Route::get('/reservations/{user}/{reservation}/{tour}/edit', [ReservationController::class, 'edit'])
     ->name('reservations.edit');
 Route::post('/reservations/{user}/{reservation}/{tour}/update', [ReservationController::class, 'update'])
     ->name('reservations.update');
-
 Route::delete('/reservations/{user}/{reservation}/delete', [ReservationController::class, 'delete'])
     ->name('reservations.delete');
+Route::get('/reservations/{tour}/checkout', [ReservationController::class, 'checkout'])
+    ->name('reservations.checkout');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
@@ -159,5 +163,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/dashboard/locations/{location}/delete', [LocationController::class, 'delete'])
         ->name('locations.delete');
 });
+
+//Reservations
+
+Route::get('dashboard/reservations/reservations', [ReservationController::class, 'show'])
+    ->name('reservations.show');
+Route::get('dashboard/reservations/{user}/{reservation}/{tour}', [ReservationController::class, 'show_one'])
+    ->name('reservations.show_one');
 
 // Auth::routes();

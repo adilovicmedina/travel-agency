@@ -2,14 +2,13 @@
 
 @section('dashboard_content')
 
-      <div class="row">
+  <div class="row">
                             <div class="col-lg-12" style="margin-top: 120px;">
                                 <div class="row">
                                     <div class="col-6">
-                                <h2 class="title-1 m-b-25">Users</h2>
+                                <h2 class="title-1 m-b-25">Reservations</h2>
                                 </div>
                                 <div class="col-6" style="text-align: right;">
-                                <a href="{{ route('users.create') }}">CREATE</a>
                                 </div>
                                 </div>
                                 <div class="table-responsive table--no-card m-b-40">
@@ -17,35 +16,26 @@
                                         <thead>
                                             <tr>
                                             <th scope="col" width="1%">#</th>
-                                            <th>email</th>
-                                                <th>username</th>
-                                                <th>roles</th>
-                                                <th class="text-right">show</th>
-                                                <th class="text-right">edit</th>
+                                            <th>name</th>
+                                            <th>tours</th>
+                                                <th>total price</th>
+                                                <th>show</th>
                                                 <th class="text-right">delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($users as $user)
+                                        @foreach($reservations as $reservation)
                                             <tr>
                                                 <td>
-                                                {{ $user->id }}</td>
-
-                                                <td> {{ $user->email }} </td>
-                                                <td> {{ $user->username }} </td>
+                                                {{ $reservation->resID }}</td>
+                                                 <td> {{ $reservation->username }} </td>
+                                                <td> {{ $reservation->name }} </td>
+                                                <td>{{ $reservation->total_price }}</td>
                                                 <td>
-                                                @foreach($user->roles as $role)
-                                                    <span class="badge bg-primary">{{ $role->name }}</span>
-                                                @endforeach
+                                                    <a class="btn btn-primary btn-sm" href="{{ route('reservations.show_one', [$reservation->userID, $reservation->resID, $reservation->tourID]) }}">Show</a>
                                                 </td>
-                                                <td>
-                                                    <a href="{{ route('users.show', $user->id) }}" class="btn btn-warning btn-sm">Show</a>
-                                                </td>
-                                                <td>
-                                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info btn-sm">Edit</a>
-                                                </td>
-                                                <td>
-                                                    {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
+                                                <td class="text-right">
+                                                    {!! Form::open(['method' => 'DELETE', 'route' => ['reservations.delete', $reservation->userID, $reservation->resID],'style'=>'display:inline']) !!}
                                                     {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                                                     {!! Form::close() !!}
                                                 </td>
@@ -54,7 +44,7 @@
                                         </tbody>
                                     </table>
                                     <div class="d-flex">
-            {!! $users->links() !!}
+            {!! $reservations->links() !!}
         </div>
                                 </div>
                             </div>
