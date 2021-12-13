@@ -28,7 +28,7 @@ class LocationController extends Controller
 
     public function admin_index()
     {
-           $locations = Location::latest()->paginate(10);
+        $locations = Location::latest()->paginate(10);
         return view('locations.index', compact('locations'));
     }
 
@@ -41,14 +41,14 @@ class LocationController extends Controller
     public function create()
     {
         return view('locations.create',
-                    [
-                    'countries' => Country::latest()->get(),
-                    ]);
+            [
+                'countries' => Country::latest()->get(),
+            ]);
     }
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $location = $this->validate($request, [
             'name' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
@@ -57,9 +57,16 @@ class LocationController extends Controller
         ]);
         Location::create($request->all());
 
-        return redirect()
-            ->route('locations.index')
-            ->withSuccess(__('Location created successfully.'));
+        if ($location) {
+            return redirect()->route('locations.index')
+                ->withSuccess(__('Location created successfully.'));
+
+        } else {
+            return redirect()->back()
+                ->with('error', "Location didn't created.");
+
+        }
+
     }
 
     public function edit(Location $location)
@@ -72,20 +79,32 @@ class LocationController extends Controller
 
     public function update(Request $request, Location $location)
     {
-        $location->update($request->only('name', 'latitude', 'longitude', 'photo', 'country_id'));
+        $updated_location = $location->update($request->only('name', 'latitude', 'longitude', 'photo', 'country_id'));
 
-        return redirect()
-            ->route('locations.index')
-            ->withSuccess(__('Location updated successfully.'));
+        if ($updated_location) {
+            return redirect()->route('locations.index')
+                ->withSuccess(__('Location updated successfully.'));
+
+        } else {
+            return redirect()->back()
+                ->with('error', "Location didn't updated.");
+
+        }
     }
 
     public function delete(Location $location)
     {
-        $location->delete();
+        $deleted_location = $location->delete();
 
-        return redirect()
-            ->route('locations.index')
-            ->withSuccess(__('location deleted successfully.'));
+        if ($deleted_location) {
+            return redirect()->route('locations.index')
+                ->withSuccess(__('Location deleted successfully.'));
+
+        } else {
+            return redirect()->back()
+                ->with('error', "Location didn't deleted.");
+
+        }
     }
 
     public function upload(Request $request, Location $location)

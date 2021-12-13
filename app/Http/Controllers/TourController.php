@@ -77,7 +77,7 @@ class TourController extends Controller
         }
         $special_wishes_serialize = serialize($special_wishes);
 
-        Tour::create([
+        $tour = Tour::create([
             'name' => $name,
             'location_id' => $location_id,
             'start_date' => $start_date,
@@ -87,9 +87,15 @@ class TourController extends Controller
             'price_for_children' => $price_for_children,
             'special_wishes' => $special_wishes_serialize,
         ]);
+        if ($tour) {
+            return redirect()->route('tours.index')
+                ->withSuccess(__('Tour created successfully.'));
 
-        return redirect()->route('tours.index')
-            ->withSuccess(__('Tour created successfully.'));
+        } else {
+            return redirect()->back()
+                ->with('error', "Tour didn't created.");
+
+        }
     }
 
     public function edit(Tour $tour)
@@ -103,18 +109,30 @@ class TourController extends Controller
 
     public function update(Request $request, Tour $tour)
     {
-        $tour->update($request->only('name', 'start_date', 'end_date', 'country_id', 'location_id', 'special_wishes'));
+        $updated_tour = $tour->update($request->only('name', 'start_date', 'end_date', 'country_id', 'location_id', 'special_wishes'));
+        if ($updated_tour) {
+            return redirect()->route('tours.index')
+                ->withSuccess(__('Tour updated successfully.'));
 
-        return redirect()->route('tours.index')
-            ->withSuccess(__('Tour updated successfully.'));
+        } else {
+            return redirect()->back()
+                ->with('error', "Tour didn't updated.");
+
+        }
     }
 
     public function delete(Tour $tour)
     {
-        $tour->delete();
+        $deleted_tour = $tour->delete();
 
-        return redirect()->route('tours.index')
-            ->withSuccess(__('Tour deleted successfully.'));
+        if ($updated_tour) {
+            return redirect()->route('tours.index')
+                ->withSuccess(__('Tour deleted successfully.'));
+
+        } else {
+            return redirect()->back()
+                ->with('error', "Tour didn't deleted.");
+        }
     }
 
     public function upload(Request $request, Tour $tour)

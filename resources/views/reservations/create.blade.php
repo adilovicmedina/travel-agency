@@ -7,7 +7,7 @@
                     <div class="login-content" style="margin-top: 50px; padding: 50px 100px;">
                         <div class="login-form" style="border: 1px solid black;">
                         <h2 style="padding-left: 20px; padding-top: 20px;">RESERVATION</h2>
-                            <form method="POST" action="{{ route('reservations.checkout', $tour->id) }}" style="padding: 30px;">
+                            <form method="GET" action="{{ route('reservations.checkout', $tour->id) }}" style="padding: 30px;">
                             	@csrf
                                 @if (!Auth::guest())
                                 <div class="form-group">
@@ -37,10 +37,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <p><label for="special_wishes" class="form-label">Special</label></p>
-                                     @foreach ((unserialize($tour->special_wishes)) as $t)
-                                    <input value="{{ $t['name'] }}"
-                                                type="checkbox"
-                                                name="special_wishes[]">{{ $t['name'] }}
+                                     @foreach ((unserialize($tour->special_wishes)) as $key => $t)
+                                    <input value="{{ $key }}"
+                                            type="checkbox"
+                                            name="special_wishes[]">{{ $t['name'] }} - {{$t['price'] }} <br>
+
                                     @endforeach
                                 </div>
 
@@ -48,8 +49,8 @@
                         <span class="text-danger text-left">{{ $errors->first('special_wishes') }}</span>
                     @endif
                 </div>
- <a style="font-size: 20px; padding: 10px;" class="btn btn-primary btn-sm" href="{{ route('reservations.checkout', $tour->id) }}">Checkout</a>
-                                <!-- <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">RESERVE</button> -->
+                <button type='submit'>checkout</button>
+                                <!-- <button class="au-btn au-btn--block au-btn--green m-b-20" type="button">checkout</button> -->
                             </form>
                             <div class="register-link" style="padding: 30px;">
                                 <p>
@@ -138,7 +139,7 @@
                         <span class="text-danger text-left">{{ $errors->first('special_wishes') }}</span>
                     @endif
                 </div>
-                                <!-- <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">RESERVE</button> -->
+                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">RESERVE</button>
                             </form>
                             <div class="register-link" style="padding: 30px;">
                                 <p>

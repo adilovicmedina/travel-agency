@@ -42,8 +42,15 @@ class UserController extends Controller
             'role_id' => $request->role,
         ]);
 
-        return redirect()->route('users.index')
-            ->withSuccess(__('User created successfully.'));
+        if ($user) {
+            return redirect()->route('users.index')
+                ->withSuccess(__('User created successfully.'));
+
+        } else {
+            return redirect()->back()
+                ->with('error', "User didn't created.");
+
+        }
     }
 
     public function show(User $user)
@@ -71,23 +78,37 @@ class UserController extends Controller
 
     public function update(User $user, UpdateUserRequest $request)
     {
-        $user->update($request->validated());
+        $updated_user = $user->update($request->validated());
 
         DB::table('role_user')->where('user_id', $user->id)
             ->update([
                 'role_id' => $request->role,
             ]);
 
-        return redirect()->route('users.index')
-            ->withSuccess(__('User updated successfully.'));
+        if ($updated_user) {
+            return redirect()->route('users.index')
+                ->withSuccess(__('User updated successfully.'));
+
+        } else {
+            return redirect()->back()
+                ->with('error', "User didn't updated.");
+
+        }
     }
 
     public function delete(User $user)
     {
-        $user->delete();
+        $deleted_user = $user->delete();
 
-        return redirect()->route('users.index')
-            ->withSuccess(__('User deleted successfully.'));
+        if ($deleted_user) {
+            return redirect()->route('users.index')
+                ->withSuccess(__('User deleted successfully.'));
+
+        } else {
+            return redirect()->back()
+                ->with('error', "User didn't deleted.");
+
+        }
+
     }
-
 }

@@ -40,13 +40,20 @@ class ContinentController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $continent = $this->validate($request, [
             'name' => 'required',
         ]);
         Continent::create($request->all());
 
-        return redirect()->route('continents.index')
-            ->withSuccess(__('Continent created successfully.'));
+        if ($continent) {
+            return redirect()->route('continents.index')
+                ->withSuccess(__('Continent created successfully.'));
+
+        } else {
+            return redirect()->back()
+                ->with('error', "Continent didn't created.");
+
+        }
     }
 
     public function edit(Continent $continent)
@@ -58,17 +65,33 @@ class ContinentController extends Controller
 
     public function update(Request $request, Continent $continent)
     {
-        $continent->update($request->only('name'));
+        $updated_continent = $continent->update($request->only('name'));
 
-        return redirect()->route('continents.index')
-            ->withSuccess(__('Continent updated successfully.'));
+        if ($updated_continent) {
+            return redirect()->route('continents.index')
+                ->withSuccess(__('Continent updated successfully.'));
+
+        } else {
+            return redirect()->back()
+                ->with('error', "Continent didn't updated.");
+
+        }
+
     }
 
     public function delete(Continent $continent)
     {
-        $continent->delete();
+        $deleted_continent = $continent->delete();
 
-        return redirect()->route('continents.index')
-            ->withSuccess(__('Continent deleted successfully.'));
+        if ($deleted_continent) {
+            return redirect()->route('continents.index')
+                ->withSuccess(__('Continent deleted successfully.'));
+
+        } else {
+            return redirect()->back()
+                ->with('error', "Continent didn't deleted.");
+
+        }
+
     }
 }

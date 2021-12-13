@@ -30,46 +30,17 @@ class ReservationController extends Controller
             ]);
     }
 
-    public function store(Request $request, Tour $tour)
+    public function checkout(Request $request, Tour $tour)
     {
+
         $request->validate([
             'number_of_people' => 'required|min:0',
-            'number_of_children' => 'required|min:0',
-
+            'number_of_children' => 'min:1|max:10',
         ]);
-
-        $number_of_people = $request->number_of_people;
-        $number_of_children = $request->number_of_children;
-        $special_wishes = $request->special_wishes;
-
-        $price = (($tour->price * $number_of_people) + ($tour->price_for_children * $number_of_children));
-
-        foreach ((unserialize($tour->special_wishes)) as $t) {
-            if ($t === $special_wishes) {
-                $special_wishes[] = ['name' => $t['name'], 'price' => $t['price']];
-            }
-
-            $total_price = (($tour->price * $number_of_people) + ($tour->price_for_children * $number_of_children) + $t['price']);
-
-        }
-
-        $special_wishes_serialize = serialize($special_wishes);
-
-        if ($number_of_people <= 0) {
-            return redirect()
-                ->route('reservations.create', $tour->id)
-                ->withSuccess(__("Number of people can't be a negative number."));
-        }
-
-        if ($number_of_people > 10) {
-            return redirect()
-                ->route('reservations.create', $tour->id)
-                ->withSuccess(__("Number of people can't be over 10."));
-        }
 
         if (Auth::guest()) {
 
-            $id = DB::table('users')->insertGetId([
+            $user = DB::table('users')->insertGetId([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'phone' => $request->phone,
@@ -77,36 +48,46 @@ class ReservationController extends Controller
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
             ]);
+            Auth::loginUsingId($user);
+        }
 
-            $reservation = Reservation::create([
-                'number_of_children' => $number_of_children,
-                'number_of_people' => $number_of_people,
-                'tour_id' => $tour->id,
-                'user_id' => $id,
-                'total_price' => $total_price,
-                'special_wishes' => $special_wishes,
-            ]);
+        return view('reservations.checkout', [
+            'tour' => $tour,
+        ]);
 
-            Auth::loginUsingId($id);
+    }
 
-            return redirect()
-                ->route('tours.tour', $tour->id)
-                ->withSuccess(__("Reservation created successfully."));
+    public function store(Request $request, Tour $tour)
+    {
+        $number_of_people = $request->number_of_people;
+        $number_of_children = $request->number_of_children;
 
-        } else {
-            $reservation = Reservation::create([
-                'number_of_children' => $number_of_children,
-                'number_of_people' => $number_of_people,
-                'tour_id' => $tour->id,
-                'user_id' => Auth::id(),
-                'total_price' => $total_price,
-                'special_wishes' => $special_wishes_serialize,
-            ]);
-            return redirect()
-                ->route('tours.tour', $tour->id)
-                ->withSuccess(__('Reservation created successfully.'));
+        $tour_special = unserialize($tour->special_wishes);
+
+        $special_price = 0;
+        foreach ($request->special as $key => $special) {
+            $special_price += (int) $tour_special[$special]['price'];
+            $special_wishes[] = ['name' => $tour_special[$special]['name'], 'price' => $tour_special[$special]['price']];
 
         }
+
+        $total_price = ($tour->price * $number_of_people) + ($tour->price_for_children * $number_of_children) + $special_price;
+
+        $special_wishes_serialize = serialize($special_wishes);
+
+        $reservation = Reservation::create([
+            'number_of_children' => $number_of_children,
+            'number_of_people' => $number_of_people,
+            'tour_id' => $tour->id,
+            'user_id' => Auth::id(),
+            'total_price' => $total_price,
+            'special_wishes' => $special_wishes_serialize,
+        ]);
+
+        return redirect()
+            ->route('tours.tour', $tour->id)
+            ->withSuccess(__('Reservation created successfully.'));
+
     }
 
     public function edit(User $user, Reservation $reservation, Tour $tour)
@@ -123,18 +104,6 @@ class ReservationController extends Controller
         $reservation->update($request->only('number_of_people', 'number_of_children', 'total_price'));
         $number_of_people = $request->number_of_people;
         $number_of_children = $request->number_of_children;
-
-        if ($number_of_people <= 0) {
-            return redirect()
-                ->route('reservations.edit', [$user->id, $reservation->id, $tour->id])
-                ->withSuccess(__("Number of people can't be a negative number."));
-        }
-
-        if ($number_of_people > 10) {
-            return redirect()
-                ->route('reservations.edit', [$user->id, $reservation->id, $tour->id])
-                ->withSuccess(__("Number of people can't be over 10."));
-        }
 
         DB::table('reservations')
             ->where('id', $reservation->id)
@@ -174,13 +143,4 @@ class ReservationController extends Controller
 
     }
 
-    public function checkout(Reservation $reservation, Tour $tour)
-    {
-
-        return view('reservations.checkout', [
-            'tour' => $tour,
-            'reservation' => $reservation,
-        ]);
-
-    }
 }

@@ -46,8 +46,16 @@ class RoleController extends Controller
 
         $role = Role::create(['name' => $request->get('name')]);
 
-        return redirect()->route('roles.index')
-            ->with('success', 'Role created successfully');
+        if ($role) {
+            return redirect()->route('roles.index')
+                ->withSuccess(__('Role created successfully.'));
+
+        } else {
+            return redirect()->back()
+                ->with('error', "Role didn't created.");
+
+        }
+
     }
 
     /**
@@ -87,10 +95,18 @@ class RoleController extends Controller
             'name' => 'required',
         ]);
 
-        $role->update($request->only('name'));
+        $updated_role = $role->update($request->only('name'));
 
-        return redirect()->route('roles.index')
-            ->with('success', 'Role updated successfully');
+        if ($updated_role) {
+            return redirect()->route('roles.index')
+                ->withSuccess(__('Role updated successfully.'));
+
+        } else {
+            return redirect()->back()
+                ->with('error', "Role didn't updated.");
+
+        }
+
     }
 
     /**
@@ -101,8 +117,16 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        $role->delete();
-        return redirect()->route('roles.index')
-            ->with('success', 'Role deleted successfully');
+        $deleted_role = $role->delete();
+
+        if ($deleted_role) {
+            return redirect()->route('roles.index')
+                ->withSuccess(__('Role deleted successfully.'));
+
+        } else {
+            return redirect()->back()
+                ->with('error', "Role didn't deleted.");
+
+        }
     }
 }

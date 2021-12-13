@@ -50,7 +50,7 @@ class CountryController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $country = $this->validate($request, [
             'name' => 'required',
             'continent_id' => 'required',
             'about' => 'required',
@@ -58,9 +58,15 @@ class CountryController extends Controller
         ]);
         Country::create($request->all());
 
-        return redirect()->route('countries.index')
-            ->withSuccess(__('Country created successfully.'));
+        if ($country) {
+            return redirect()->route('countries.index')
+                ->withSuccess(__('Country created successfully.'));
 
+        } else {
+            return redirect()->back()
+                ->with('error', "Country didn't create.");
+
+        }
     }
 
     public function edit(Country $country)
@@ -73,18 +79,33 @@ class CountryController extends Controller
 
     public function update(Request $request, Country $country)
     {
-        $country->update($request->only('name', 'photo', 'about', 'continent_id'));
+        $updated_country = $country->update($request->only('name', 'photo', 'about', 'continent_id'));
 
-        return redirect()->route('countries.index')
-            ->withSuccess(__('Country updated successfully.'));
+        if ($updated_country) {
+            return redirect()->route('countries.index')
+                ->withSuccess(__('Country updated successfully.'));
+
+        } else {
+            return redirect()->back()
+                ->with('error', "Country didn't update.");
+
+        }
     }
 
     public function delete(Country $country)
     {
-        $country->delete();
+        $deleted_country = $country->delete();
 
-        return redirect()->route('countries.index')
-            ->withSuccess(__('Country deleted successfully.'));
+        if ($deleted_country) {
+            return redirect()->route('countries.index')
+                ->withSuccess(__('Country deleted successfully.'));
+
+        } else {
+            return redirect()->back()
+                ->with('error', "Country didn't delete.");
+
+        }
+
     }
 
     public function upload(Request $request, Country $country)

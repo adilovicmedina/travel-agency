@@ -61,7 +61,11 @@ Route::get('/reservations/{user}', [ReservationController::class, 'index'])
     ->name('reservations.index');
 Route::get('/reservations/{tour}/create', [ReservationController::class, 'create'])
     ->name('reservations.create');
-Route::post('/reservations/{tour}/store', [ReservationController::class, 'store'])
+
+Route::get('/reservations/{tour}/checkout', [ReservationController::class, 'checkout'])
+    ->name('reservations.checkout');
+
+Route::post('/reservations/{tour}/checkout', [ReservationController::class, 'store'])
     ->name('reservations.store');
 Route::get('/reservations/{user}/{reservation}/{tour}/edit', [ReservationController::class, 'edit'])
     ->name('reservations.edit');
@@ -69,8 +73,6 @@ Route::post('/reservations/{user}/{reservation}/{tour}/update', [ReservationCont
     ->name('reservations.update');
 Route::delete('/reservations/{user}/{reservation}/delete', [ReservationController::class, 'delete'])
     ->name('reservations.delete');
-Route::get('/reservations/{tour}/checkout', [ReservationController::class, 'checkout'])
-    ->name('reservations.checkout');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
