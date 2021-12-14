@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use DB;
+use Illuminate\Database\Seeder;
 
 class CategoryLocationSeeder extends Seeder
 {
@@ -14,9 +14,9 @@ class CategoryLocationSeeder extends Seeder
      */
     public function run()
     {
-         DB::table('categories_locations')->truncate();
+        DB::table('categories_locations')->truncate();
 
-         $categories_locations = [
+        $categories_locations = [
             ['location_id' => 1, 'category_id' => 2],
             ['location_id' => 2, 'category_id' => 1],
             ['location_id' => 3, 'category_id' => 1],
@@ -29,6 +29,6 @@ class CategoryLocationSeeder extends Seeder
             ['location_id' => 10, 'category_id' => 1],
             ['location_id' => 11, 'category_id' => 1],
         ];
-         DB::table('categories_locations')->insert($categories_locations);
+        DB::table('categories_locations')->insert($categories_locations);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use DB;
+use Illuminate\Database\Seeder;
 
 class LocationSeeder extends Seeder
 {
@@ -14,21 +14,21 @@ class LocationSeeder extends Seeder
      */
     public function run()
     {
-           DB::table('locations')->truncate();
+        DB::table('locations')->truncate();
 
-         $locations = [
-            ['name' => 'Golubac', 'lantitude' => 44.528797, 'longitude' => 21.984501, 'photo' => '/images/italy.jpg', 'country_id' => 1],
-               ['name' => 'Nis', 'lantitude' => 44.528797, 'longitude' => 21.984501, 'photo' => '/images/italy.jpg', 'country_id' => 1],
-               ['name' => 'Golubac', 'lantitude' => 44.528797, 'longitude' => 21.984501, 'photo' => '/images/italy.jpg', 'country_id' => 1],
-               ['name' => 'Zagubica', 'lantitude' => 44.528797, 'longitude' => 21.984501, 'photo' => '/images/italy.jpg', 'country_id' => 1],
-               ['name' => 'Nice', 'lantitude' => 44.528797, 'longitude' => 21.984501, 'photo' => '/images/italy.jpg', 'country_id' => 3],
-               ['name' => 'Paris', 'lantitude' => 44.528797, 'longitude' => 21.984501, 'photo' => '/images/italy.jpg', 'country_id' => 3],
-               ['name' => ' Montoire', 'lantitude' => 44.528797, 'longitude' => 21.984501, 'photo' => '/images/italy.jpg', 'country_id' => 1],
-               ['name' => 'Sahara', 'lantitude' => 44.528797, 'longitude' => 21.984501, 'photo' => '/images/italy.jpg', 'country_id' => 2],
-               ['name' => 'Luxor', 'lantitude' => 44.528797, 'longitude' => 21.984501, 'photo' => '/images/italy.jpg', 'country_id' => 2],
-               ['name' => 'Kairo', 'lantitude' => 44.528797, 'longitude' => 21.984501, 'photo' => '/images/italy.jpg', 'country_id' => 2],
-               ['name' => 'Tokio', 'lantitude' => 44.528797, 'longitude' => 21.984501, 'photo' => '/images/italy.jpg', 'country_id' => 4],
+        $locations = [
+            ['name' => 'Golubac', 'latitude' => 44.528797, 'longitude' => 21.984501, 'photo' => 'italy.jpg', 'country_id' => 1],
+            ['name' => 'Nis', 'latitude' => 44.528797, 'longitude' => 21.984501, 'photo' => 'italy.jpg', 'country_id' => 1],
+            ['name' => 'Golubac', 'latitude' => 44.528797, 'longitude' => 21.984501, 'photo' => 'italy.jpg', 'country_id' => 1],
+            ['name' => 'Zagubica', 'latitude' => 44.528797, 'longitude' => 21.984501, 'photo' => 'italy.jpg', 'country_id' => 1],
+            ['name' => 'Nice', 'latitude' => 44.528797, 'longitude' => 21.984501, 'photo' => 'italy.jpg', 'country_id' => 3],
+            ['name' => 'Paris', 'latitude' => 44.528797, 'longitude' => 21.984501, 'photo' => 'italy.jpg', 'country_id' => 3],
+            ['name' => ' Montoire', 'latitude' => 44.528797, 'longitude' => 21.984501, 'photo' => 'italy.jpg', 'country_id' => 1],
+            ['name' => 'Sahara', 'latitude' => 44.528797, 'longitude' => 21.984501, 'photo' => 'italy.jpg', 'country_id' => 2],
+            ['name' => 'Luxor', 'latitude' => 44.528797, 'longitude' => 21.984501, 'photo' => 'italy.jpg', 'country_id' => 2],
+            ['name' => 'Kairo', 'latitude' => 44.528797, 'longitude' => 21.984501, 'photo' => 'italy.jpg', 'country_id' => 2],
+            ['name' => 'Tokio', 'latitude' => 44.528797, 'longitude' => 21.984501, 'photo' => 'italy.jpg', 'country_id' => 4],
         ];
-         DB::table('locations')->insert($locations);
+        DB::table('locations')->insert($locations);
     }
 }

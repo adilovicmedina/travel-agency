@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use DB;
+use Illuminate\Database\Seeder;
 
 class ContinentSeeder extends Seeder
 {
@@ -14,9 +14,9 @@ class ContinentSeeder extends Seeder
      */
     public function run()
     {
-       DB::table('continents')->truncate();
+        DB::table('continents')->truncate();
 
-         $continents = [
+        $continents = [
             ['name' => 'Europe'],
             ['name' => 'Africa'],
             ['name' => 'Australia'],
@@ -25,6 +25,6 @@ class ContinentSeeder extends Seeder
             ['name' => 'Asia'],
             ['name' => 'Antarctica'],
         ];
-         DB::table('continents')->insert($continents);
+        DB::table('continents')->insert($continents);
     }
 }

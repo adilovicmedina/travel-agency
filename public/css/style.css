@@ -1,76 +1,75 @@
-.country{
-	margin-bottom: 100px;
+.country {
+    margin-bottom: 100px;
 }
 .country__title,
 .tour__title,
-.continents__title{
-	font-size: 25px;
-	margin: 50px 0;
-	text-transform: uppercase;
-	font-weight: 800;
-	text-align: center;
+.continents__title {
+    font-size: 25px;
+    margin: 50px 0;
+    text-transform: uppercase;
+    font-weight: 800;
+    text-align: center;
 }
 
-.country__items{
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 20px;
-	font-size: 16px;
+.country__items {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    font-size: 16px;
 }
 
-.country__items a{
-	color: #333;
-	text-decoration: none;
+.country__items a {
+    color: #333;
+    text-decoration: none;
 }
 
-.country__items a:hover{
-	color: #932D12;
-	font-weight: 700;
+.country__items a:hover {
+    color: #932d12;
+    font-weight: 700;
 }
 
-.country__items--img{
-	margin-bottom: 30px;
+.country__items--img {
+    margin-bottom: 30px;
 }
 
 .country__items--about,
-.country__items--tour{
-	width: 888px;
-	margin-bottom: 50px;
+.country__items--tour {
+    width: 888px;
+    margin-bottom: 50px;
 }
-.country__items--img img{
-	width:  100%;
-	height: 100%;
+.country__items--img img {
+    width: 100%;
+    height: 100%;
 }
 
 .country__items--about h4,
-.country__items--tours h4{
-	font-size: 20px ;
-	text-align: left;
+.country__items--tours h4 {
+    font-size: 20px;
+    text-align: left;
 }
 .back {
     margin-top: 100px;
     margin-bottom: 100px;
 }
 
-.back a{
-    background-color: #932D12;
+.back a {
+    background-color: #932d12;
     padding: 15px 50px;
     border-radius: 5px;
     color: #fff;
     text-decoration: none;
-
 }
 
 .back a:hover,
-.back a:focus{
-	background-color: #76250F;
-	color: #fff;
-	font-weight: 400;
+.back a:focus {
+    background-color: #76250f;
+    color: #fff;
+    font-weight: 400;
 }
 
-.country__items--tour{
-	margin-bottom: 100px;
-	text-align: left;
+.country__items--tour {
+    margin-bottom: 100px;
+    text-align: left;
 }
 
 .tour,
@@ -78,51 +77,49 @@
     text-align: center;
 }
 
-
-.tour__items h4{
-	margin-bottom: 20px;
+.tour__items h4 {
+    margin-bottom: 20px;
 }
 
 .tour__items--date p,
-.tour__items--location p{
-	font-weight: 500;
-	margin: 0;
-	margin-right: 20px;
-	margin-top: 20px;
+.tour__items--location p {
+    font-weight: 500;
+    margin: 0;
+    margin-right: 20px;
+    margin-top: 20px;
 }
 
 .tour__list,
-.continent__list{
-	list-style: none;
-	/*margin:auto;*/
+.continent__list {
+    list-style: none;
+    /*margin:auto;*/
 }
 
 .tour__list a,
 .continent__list a {
-	color: #333;
-	text-decoration: none;
+    color: #333;
+    text-decoration: none;
 }
 
 .tour__list a:hover,
-.continent__list a:hover{
-	color: #932D12;
-} 
-
-
-.continent__list li{
-	margin-bottom: 10px;
+.continent__list a:hover {
+    color: #932d12;
 }
 
-.nav{
-	text-align: center;
-	margin-top: 30px;
-}
-.nav li{
-	margin-right: 20px;
+.continent__list li {
+    margin-bottom: 10px;
 }
 
-.nav li a{
-	color: #333;
+.nav {
+    text-align: center;
+    margin-top: 30px;
+}
+.nav li {
+    margin-right: 20px;
+}
+
+.nav li a {
+    color: #333;
 }
 
 a#logo {
@@ -132,35 +129,34 @@ a#logo {
     text-decoration: none;
 }
 
-footer{
-	background-color: #777;
+footer {
+    background-color: #777;
 }
 
-ul{
-	padding: 0;
+ul {
+    padding: 0;
 }
 
-.country__items--tour ul{
-	list-style: none;
+.country__items--tour ul {
+    list-style: none;
 }
 
-.header-padding{
-	padding-bottom: 50px;
+.header-padding {
+    padding-bottom: 50px;
 }
 
-.title{
-	font-weight: 700;
-	text-transform: uppercase;
-	font-size: 25px;
-	margin-bottom: 20px;
-	padding: 0;
+.title {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 25px;
+    margin-bottom: 20px;
+    padding: 0;
 }
 
-.navbar{
-	padding: 0;
-	padding-top: 20px;
+.navbar {
+    padding: 0;
+    padding-top: 20px;
 }
-
 
 .search {
     margin-top: 30px;
@@ -168,5 +164,74 @@ ul{
 
 .header-flex {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+}
+
+.form-center {
+    display: flex !important;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 30px;
+    background-color: #bbb;
+    padding: 20px;
+    width: 80%;
+    margin-bottom: 100px;
+    border-radius: 10px;
+}
+
+.form-center h2 {
+    text-transform: uppercase;
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.form-center div {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-center input {
+    width: 60%;
+    height: 40px;
+    margin-bottom: 20px !important;
+    border: none;
+}
+
+.form-center label,
+.form-center input,
+.form-submit {
+    margin: 0 auto;
+}
+
+.form-center label {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.form-submit {
+    width: 30%;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px 0;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.account ul {
+    justify-content: flex-end;
+}
+.copyright p{
+    font-size: 12px;
+    text-align: center;
+}
+
+.reservations{
+    border: 1px solid #000;
+}
+
+.reservations td{
+    border: 1px solid #000;
 }
