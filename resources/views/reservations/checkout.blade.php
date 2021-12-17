@@ -60,7 +60,7 @@
                 </div>
                  <div>
                     <label for="">Special wishes</label>
-                    @foreach( $_GET['special_wishes'] as $key => $special)
+                    @foreach($_GET['special_wishes'] as $key => $special)
                       <input value="{{ $special }}"
                         type="text"
                         class="form-control"
