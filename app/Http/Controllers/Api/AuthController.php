@@ -76,8 +76,7 @@ class AuthController extends Controller
             'last_name' => $request->last_name,
             'phone' => $request->phone,
             'username' => $request->username,
-        ]
-        );
+        ]);
 
         return response()->json([
             'message' => 'User successfully registered',

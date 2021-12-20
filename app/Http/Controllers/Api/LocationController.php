@@ -70,7 +70,7 @@ class LocationController extends Controller
 
         } else {
 
-            return response()->json(['Result' => 'Operation failed.']);
+            return response()->json(['Result' => 'Operation failed.'], 400);
 
         }
 
@@ -86,7 +86,7 @@ class LocationController extends Controller
 
     public function update(Request $request, Location $location)
     {
-        $updated_location = $location->update($request->only('name', 'latitude', 'longitude', 'photo', 'country_id'));
+        $updated_location = $location->update($request->only('name', 'latitude', 'longitude', $this->upload(), 'country_id'));
 
         if ($updated_location) {
 
@@ -94,7 +94,7 @@ class LocationController extends Controller
 
         } else {
 
-            return response()->json(['Result' => 'Operation failed.']);
+            return response()->json(['Result' => 'Operation failed.'], 400);
 
         }
     }
@@ -109,7 +109,7 @@ class LocationController extends Controller
 
         } else {
 
-            return response()->json(['Result' => 'Operation failed.']);
+            return response()->json(['Result' => 'Operation failed.'], 400);
 
         }
     }

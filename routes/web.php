@@ -49,7 +49,7 @@ Route::get('/login', [SessionsController::class, 'create'])
     ->name('login.show');
 
 Route::post('/login', [SessionsController::class, 'store'])
-    ->name('login.perform');
+    ->name('login');
 
 Route::post('/logout', [SessionsController::class, 'destroy'])
     ->name('logout.perform');

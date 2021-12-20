@@ -158,6 +158,7 @@ Route::patch('dashboard/roles/{role}/update', [RoleController::class, 'update'])
 Route::delete('dashboard/roles/{role}/delete', [RoleController::class, 'destroy']);
 
 //Users
+
 Route::get('/dashboard/users', [UserController::class, 'index']);
 
 Route::get('/dashboard/users/create', [UserController::class, 'create']);

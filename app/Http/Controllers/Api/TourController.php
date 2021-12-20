@@ -104,7 +104,7 @@ class TourController extends Controller
 
         } else {
 
-            return response()->json(['Result' => 'Operation failed.']);
+            return response()->json(['Result' => 'Operation failed.'], 400);
 
         }
     }
@@ -128,7 +128,7 @@ class TourController extends Controller
 
         } else {
 
-            return response()->json(['Result' => 'Operation failed.']);
+            return response()->json(['Result' => 'Operation failed.'], 400);
 
         }
     }
@@ -143,7 +143,7 @@ class TourController extends Controller
 
         } else {
 
-            return response()->json(['Result' => 'Operation failed.']);
+            return response()->json(['Result' => 'Operation failed.'], 400);
 
         }
     }

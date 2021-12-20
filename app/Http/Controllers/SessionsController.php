@@ -45,8 +45,8 @@ class SessionsController extends Controller
                     return redirect('/dashboard')->with('success', 'ADMIN!');
                 }
             }
-            $user = auth()->user();
             session()->regenerate();
+            $user = auth()->user();
 
         } else {
             throw ValidationException::withMessages([

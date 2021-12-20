@@ -27,7 +27,7 @@ class UserController extends Controller
 
     public function store(User $user, Request $request)
     {
-            $user = User::create([
+        $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'phone' => $request->phone,
@@ -83,7 +83,7 @@ class UserController extends Controller
 
         } else {
 
-            return response()->json(['Result' => 'Operation failed.']);
+            return response()->json(['Result' => 'Operation failed.'], 400);
 
         }
     }
@@ -98,7 +98,7 @@ class UserController extends Controller
 
         } else {
 
-            return response()->json(['Result' => 'Operation failed.']);
+            return response()->json(['Result' => 'Operation failed.'], 400);
 
         }
     }

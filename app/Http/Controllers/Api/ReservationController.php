@@ -86,7 +86,7 @@ class ReservationController extends Controller
 
         } else {
 
-            return response()->json(['Result' => 'Operation failed.']);
+            return response()->json(['Result' => 'Operation failed.'], 400);
 
         }
     }
@@ -116,7 +116,7 @@ class ReservationController extends Controller
 
         } else {
 
-            return response()->json(['Result' => 'Operation failed.']);
+            return response()->json(['Result' => 'Operation failed.'], 400);
 
         }
     }
@@ -131,7 +131,7 @@ class ReservationController extends Controller
 
         } else {
 
-            return response()->json(['Result' => 'Operation failed.']);
+            return response()->json(['Result' => 'Operation failed.'], 400);
 
         }
     }
