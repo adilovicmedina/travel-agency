@@ -13,12 +13,18 @@ class TourController extends Controller
     public function index(Request $request)
     {
         $search = $request['search'] ?? "";
+
         if ($search != "") {
+
             $getTourList = Tour::where('name', 'LIKE', "%$search%")
                 ->paginate(5);
+
         } else {
+
             $getTourList = Tour::paginate(5);
+
         }
+
         return response()->json($getTourList);
     }
 
@@ -26,19 +32,20 @@ class TourController extends Controller
     {
         $tour = Tour::where('id', $id)
             ->firstOrFail();
+
         return response()->json($tour);
     }
 
     public function admin_index(Request $request)
     {
         return Tour::latest()->paginate(10);
-
     }
 
     public function admin_show($id)
     {
         $tour = Tour::where('id', $id)
             ->firstOrFail();
+
         return response()->json($tour);
     }
 
@@ -77,6 +84,7 @@ class TourController extends Controller
             $special_wishes[] = ['name' => $special_name[$i], 'price' => $special_price[$i]];
 
         }
+
         $special_wishes_serialize = serialize($special_wishes);
 
         $tour = Tour::create([
@@ -115,6 +123,7 @@ class TourController extends Controller
         $updated_tour = $tour->update($request->only('name', 'start_date', 'end_date', 'country_id', 'location_id', 'special_wishes'));
 
         if ($updated_tour) {
+
             return response()->json(['Result' => 'Tour updated successfully.']);
 
         } else {
@@ -129,24 +138,28 @@ class TourController extends Controller
         $deleted_tour = $tour->delete();
 
         if ($deleted_tour) {
+
             return response()->json(['Result' => 'Tour deleted successfully.']);
 
         } else {
+
             return response()->json(['Result' => 'Operation failed.']);
+
         }
     }
 
     public function upload(Request $request, Tour $tour)
     {
         if ($request->hasFile('photo')) {
+
             $filename = $request->photo->getClientOriginalName();
 
             $request->photo->storeAs('public/images/', $filename);
             $country->update(['photo' => $filename]);
+
         }
+
         return redirect()->route('tours.edit');
     }
 
 }
-
-

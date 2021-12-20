@@ -47,17 +47,21 @@ Route::group([
 
 Route::get('reservations/{user}', [ReservationController::class, 'index']);
 
-Route::get('reservations/{tour}/create', [ReservationController::class, 'create']);
+Route::get('reservations/{tour}/{user}/create', [ReservationController::class, 'create']);
 
-Route::get('reservations/{tour}/checkout', [ReservationController::class, 'checkout']);
+Route::get('reservations/{tour}/{user}/checkout', [ReservationController::class, 'checkout']);
 
-Route::post('reservations/{tour}/checkout', [ReservationController::class, 'store']);
+Route::post('reservations/{tour}/{user}/checkout', [ReservationController::class, 'store']);
 
 Route::get('reservations/{user}/{reservation}/{tour}/edit', [ReservationController::class, 'edit']);
 
 Route::post('reservations/{user}/{reservation}/{tour}/update', [ReservationController::class, 'update']);
 
 Route::delete('reservations/{user}/{reservation}/delete', [ReservationController::class, 'delete']);
+
+Route::get('dashboard/reservations', [ReservationController::class, 'show']);
+
+Route::get('dashboard/reservations/{user}/{reservation}/{tour}', [ReservationController::class, 'show_one']);
 
 //Countries
 

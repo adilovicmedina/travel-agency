@@ -18,11 +18,6 @@ class RegisterController extends Controller
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
-    /**
-     * Get a JWT via given credentials.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -31,31 +26,20 @@ class RegisterController extends Controller
         ]);
 
         if ($validator->fails()) {
+
             return response()->json($validator->errors(), 422);
+
         }
 
         if ($token = $this->guard()->attempt($validator->validated())) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-        // $credentials = ['email' => 'nikola123@gmail.com', 'password' => 'secret'];
-        // return response()->json($validator->validated());
 
-        // try {
-        //     if (!$token = JWTAuth::attempt($credentials)) {
-        //         return response()->json(['error' => 'invalid_credentials'], 400);
-        //     }
-        // } catch (JWTException $e) {
-        //     return response()->json(['error' => 'could_not_create_token'], 500);
-        // }
+            return response()->json(['error' => 'Unauthorized'], 401);
+
+        }
 
         return $this->createNewToken($token);
     }
 
-    /**
-     * Register a User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -65,16 +49,16 @@ class RegisterController extends Controller
         ]);
 
         if ($validator->fails()) {
+
             return response()->json($validator->errors()->toJson(), 400);
+
         }
 
-        $user = User::create(
-            [
-                'password' => Hash::make('secret'),
-                'email' => 'nikola123@gmail.com',
-                'name' => 'nikola1',
-            ]
-        );
+        $user = User::create([
+            'password' => Hash::make('secret'),
+            'email' => 'nikola123@gmail.com',
+            'name' => 'nikola1',
+        ]);
 
         return response()->json([
             'message' => 'User successfully registered',
@@ -82,11 +66,6 @@ class RegisterController extends Controller
         ], 201);
     }
 
-    /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function logout()
     {
         auth()->logout();
@@ -94,33 +73,16 @@ class RegisterController extends Controller
         return response()->json(['message' => 'User successfully signed out']);
     }
 
-    /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function refresh()
     {
         return $this->createNewToken(auth()->refresh());
     }
 
-    /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function userProfile()
     {
         return response()->json(auth()->user());
     }
 
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     protected function createNewToken($token)
     {
         return response()->json([

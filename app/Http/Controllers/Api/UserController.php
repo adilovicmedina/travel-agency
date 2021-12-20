@@ -19,7 +19,6 @@ class UserController extends Controller
 
     public function create()
     {
-
         return response()->json(
             [
                 'roles' => Role::latest()->get(),
@@ -28,8 +27,7 @@ class UserController extends Controller
 
     public function store(User $user, Request $request)
     {
-
-        $user = User::create([
+            $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'phone' => $request->phone,
@@ -44,9 +42,11 @@ class UserController extends Controller
         ]);
 
         if ($user) {
+
             return response()->json(['Result' => 'User created successfully.']);
 
         } else {
+
             return response()->json(['Result' => 'Operation failed.']);
 
         }
@@ -78,9 +78,11 @@ class UserController extends Controller
             ]);
 
         if ($updated_user) {
+
             return response()->json(['Result' => 'User updated successfully.']);
 
         } else {
+
             return response()->json(['Result' => 'Operation failed.']);
 
         }
@@ -91,12 +93,13 @@ class UserController extends Controller
         $deleted_user = $user->delete();
 
         if ($deleted_user) {
+
             return response()->json(['Result' => 'User deleted successfully.']);
 
         } else {
+
             return response()->json(['Result' => 'Operation failed.']);
 
         }
-
     }
 }

@@ -17,14 +17,8 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
-    /**
-     * Get a JWT via given credentials.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function login(Request $request)
     {
-
         $credentials = $request->only('email', 'password');
 
         $validator = Validator::make($request->all(), [
@@ -33,29 +27,34 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
+
             return response()->json($validator->errors(), 422);
+
         }
 
         if (!$token = $this->guard()->attempt($credentials)) {
+
             return response()->json(['error' => 'Unauthorized'], 401);
+
         }
 
         try {
+
             if (!$token = JWTAuth::attempt($credentials)) {
+
                 return response()->json(['error' => 'invalid_credentials'], 400);
+
             }
+
         } catch (JWTException $e) {
+
             return response()->json(['error' => 'could_not_create_token'], 500);
+
         }
 
         return $this->createNewToken($token);
     }
 
-    /**
-     * Register a User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -65,18 +64,19 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
+
             return response()->json($validator->errors()->toJson(), 400);
+
         }
 
-        $user = User::create(
-            [
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'phone' => $request->phone,
-                'username' => $request->username,
-            ]
+        $user = User::create([
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'phone' => $request->phone,
+            'username' => $request->username,
+        ]
         );
 
         return response()->json([
@@ -85,11 +85,6 @@ class AuthController extends Controller
         ], 201);
     }
 
-    /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function logout()
     {
         auth()->logout();
@@ -107,23 +102,11 @@ class AuthController extends Controller
         return $this->createNewToken(auth()->refresh());
     }
 
-    /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function userProfile()
     {
         return response()->json(auth()->user());
     }
 
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
     protected function createNewToken($token)
     {
         return response()->json([

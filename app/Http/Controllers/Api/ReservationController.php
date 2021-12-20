@@ -50,17 +50,16 @@ class ReservationController extends Controller
         }
 
         return response()->json(['tour' => $tour]);
-
     }
 
-    public function store(Request $request, Tour $tour)
+    public function store(Request $request, Tour $tour, User $user)
     {
+
         $number_of_people = $request->number_of_people;
         $number_of_children = $request->number_of_children;
-
         $tour_special = unserialize($tour->special_wishes);
-
         $special_price = 0;
+
         foreach (explode(",", $request->special) as $key => $special) {
 
             $special_price += (int) $tour_special[$special]['price'];
@@ -76,14 +75,17 @@ class ReservationController extends Controller
             'number_of_children' => $number_of_children,
             'number_of_people' => $number_of_people,
             'tour_id' => $tour->id,
-            'user_id' => Auth::id(),
+            'user_id' => $user->id,
             'total_price' => $total_price,
             'special_wishes' => $special_wishes_serialize,
         ]);
 
         if ($reservation) {
-            return response()->json(['Result' => 'Continent created successfully.']);
+
+            return response()->json(['Result' => 'Reservation created successfully.']);
+
         } else {
+
             return response()->json(['Result' => 'Operation failed.']);
 
         }
@@ -109,8 +111,11 @@ class ReservationController extends Controller
             ->update(array('total_price' => (($tour->price * $number_of_people) + ($tour->price_for_children * $number_of_children))));
 
         if ($updated_reservation) {
+
             return response()->json(['Result' => 'Reservation updated successfully.']);
+
         } else {
+
             return response()->json(['Result' => 'Operation failed.']);
 
         }
@@ -121,8 +126,11 @@ class ReservationController extends Controller
         $deleted_reservation = $reservation->delete();
 
         if ($deleted_reservation) {
+
             return response()->json(['Result' => 'Reservation deleted successfully.']);
+
         } else {
+
             return response()->json(['Result' => 'Operation failed.']);
 
         }
@@ -135,6 +143,7 @@ class ReservationController extends Controller
             ->join('tours', 'reservations.tour_id', '=', 'tours.id')
             ->select('users.username as username', 'users.id as userID', 'tours.name as name', 'tours.start_date as start_date', 'tours.end_date as end_date', 'tours.id as tourID', 'reservations.total_price as total_price', 'reservations.number_of_people as number_of_people', 'reservations.number_of_children as number_of_children', 'reservations.id as resID')
             ->paginate(10);
+
         return response()->json($reservations);
 
     }

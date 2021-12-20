@@ -29,10 +29,13 @@ class RoleController extends Controller
         $role = Role::create(['name' => $request->get('name')]);
 
         if ($role) {
+
             return response()->json(['Result' => 'Role created successfully.']);
 
         } else {
+
             return response()->json(['Result' => 'Operation failed.']);
+
         }
 
     }
@@ -56,10 +59,13 @@ class RoleController extends Controller
         $updated_role = $role->update($request->only('name'));
 
         if ($updated_role) {
+
             return response()->json(['Result' => 'Role updated successfully.']);
 
         } else {
+
             return response()->json(['Result' => 'Operation failed.']);
+
         }
 
     }
@@ -69,9 +75,11 @@ class RoleController extends Controller
         $deleted_role = $role->delete();
 
         if ($deleted_role) {
+
             return response()->json(['Result' => 'Role deleted successfully.']);
 
         } else {
+
             return response()->json(['Result' => 'Operation failed.']);
 
         }

@@ -11,12 +11,18 @@ class LocationController extends Controller
     public function index(Request $request)
     {
         $search = $request['search'] ?? "";
+
         if ($search != "") {
+
             $locations = Location::where('name', 'LIKE', "%$search%")
                 ->paginate(5);
+
         } else {
+
             $locations = Location::paginate(5);
+
         }
+
         return response()->json($locations);
     }
 
@@ -24,6 +30,7 @@ class LocationController extends Controller
     {
         $location = Location::with('locations_categories')->where('id', $id)
             ->firstOrFail();
+
         return response()->json($location);
     }
 
@@ -36,12 +43,15 @@ class LocationController extends Controller
     {
         $location = Location::with('locations_categories')->where('id', $id)
             ->firstOrFail();
+
         return response()->json($location);
     }
+
     public function create()
     {
         return response()->json(['countries' => Country::latest()->get()]);
     }
+
     public function store(Request $request)
     {
         $location = $this->validate($request, [
@@ -51,6 +61,7 @@ class LocationController extends Controller
             'photo' => 'required',
             'country_id' => 'required',
         ]);
+
         Location::create($request->all());
 
         if ($location) {
@@ -78,6 +89,7 @@ class LocationController extends Controller
         $updated_location = $location->update($request->only('name', 'latitude', 'longitude', 'photo', 'country_id'));
 
         if ($updated_location) {
+
             return response()->json(['Result' => 'Location updated successfully.']);
 
         } else {
@@ -105,12 +117,13 @@ class LocationController extends Controller
     public function upload(Request $request, Location $location)
     {
         if ($request->hasFile('photo')) {
-            $filename = $request->photo->getClientOriginalName();
 
+            $filename = $request->photo->getClientOriginalName();
             $request->photo->storeAs('public/images/', $filename);
             $country->update(['photo' => $filename]);
+
         }
+
         return redirect()->route('locations.edit');
     }
-
 }

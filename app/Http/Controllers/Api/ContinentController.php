@@ -19,8 +19,8 @@ class ContinentController extends Controller
     {
         $continent = Continent::where('id', $id)
             ->firstOrFail();
-        return response()->json($continent);
 
+        return response()->json($continent);
     }
 
     public function admin_index()
@@ -28,21 +28,15 @@ class ContinentController extends Controller
         $continents = Continent::all();
 
         return response()->json($continents);
-
     }
 
     public function admin_show($id)
     {
         $continent = Continent::where('id', $id)
             ->firstOrFail();
+
         return response()->json($continent);
-
     }
-
-    // public function create()
-    // {
-    //     return view('continents.create');
-    // }
 
     public function store(Request $request)
     {
@@ -53,10 +47,13 @@ class ContinentController extends Controller
         Continent::create($request->all());
 
         if ($continent) {
+
             return response()->json(['Result' => 'Continent created successfully.']);
 
         } else {
+
             return response()->json(['Result' => 'Operation failed.']);
+
         }
     }
 
@@ -70,13 +67,14 @@ class ContinentController extends Controller
         $updated_continent = $continent->update($request->only('name'));
 
         if ($updated_continent) {
+
             return response()->json(['Result' => 'Continent updated successfully.']);
 
         } else {
+
             return response()->json(['Result' => 'Operation failed.']);
 
         }
-
     }
 
     public function delete(Continent $continent)
@@ -84,12 +82,12 @@ class ContinentController extends Controller
         $deleted_continent = $continent->delete();
 
         if ($deleted_continent) {
+
             return response()->json(['Result' => 'Continent deleted successfully.']);
 
         } else {
+
             return response()->json(['Result' => 'Operation failed.']);
-
         }
-
     }
 }
