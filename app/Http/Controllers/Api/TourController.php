@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\Location;
 use App\Models\Tour;
@@ -12,38 +13,45 @@ class TourController extends Controller
     public function index(Request $request)
     {
         $search = $request['search'] ?? "";
+
         if ($search != "") {
+
             $getTourList = Tour::where('name', 'LIKE', "%$search%")
                 ->paginate(5);
+
         } else {
+
             $getTourList = Tour::paginate(5);
+
         }
-        return view('tours.tours', compact('getTourList'));
+
+        return response()->json($getTourList);
     }
 
     public function show($id)
     {
         $tour = Tour::where('id', $id)
             ->firstOrFail();
-        return view('tours.tour', compact('tour'));
+
+        return response()->json($tour);
     }
 
     public function admin_index(Request $request)
     {
-        $getTourList = Tour::latest()->paginate(10);
-        return view('tours.index', compact('getTourList'));
+        return Tour::latest()->paginate(10);
     }
 
     public function admin_show($id)
     {
         $tour = Tour::where('id', $id)
             ->firstOrFail();
-        return view('tours.show', compact('tour'));
+
+        return response()->json($tour);
     }
 
     public function create()
     {
-        return view('tours.create', [
+        return response()->json([
             'countries' => Country::latest()->get(),
             'locations' => Location::latest()->get(),
         ]);
@@ -60,21 +68,23 @@ class TourController extends Controller
             'price' => 'required',
             'price_for_children' => 'required',
         ]);
+
         $name = $request->name;
         $location_id = $request->location_id;
-        $start_date = $request->start_date;
-        $end_date = $request->end_date;
+        $start_date = date("Y-m-d", strtotime($request->start_date));
+        $end_date = date("Y-m-d", strtotime($request->end_date));
         $country_id = $request->country_id;
         $price = $request->price;
         $price_for_children = $request->price_for_children;
-        $special_name = $request->special_name;
-        $special_price = $request->special_price;
+        $special_name = explode(",", $request->special_name);
+        $special_price = explode(",", $request->special_price);
 
         for ($i = 0; $i < count($special_name); $i++) {
 
             $special_wishes[] = ['name' => $special_name[$i], 'price' => $special_price[$i]];
 
         }
+
         $special_wishes_serialize = serialize($special_wishes);
 
         $tour = Tour::create([
@@ -87,20 +97,21 @@ class TourController extends Controller
             'price_for_children' => $price_for_children,
             'special_wishes' => $special_wishes_serialize,
         ]);
+
         if ($tour) {
-            return redirect()->route('tours.index')
-                ->withSuccess(__('Tour created successfully.'));
+
+            return response()->json(['Result' => 'Tour created successfully.']);
 
         } else {
-            return redirect()->back()
-                ->with('error', "Tour didn't created.");
+
+            return response()->json(['Result' => 'Operation failed.'], 400);
 
         }
     }
 
     public function edit(Tour $tour)
     {
-        return view('tours.edit', [
+        return response()->json([
             'tour' => $tour,
             'countries' => Country::latest()->get(),
             'locations' => Location::latest()->get(),
@@ -110,13 +121,14 @@ class TourController extends Controller
     public function update(Request $request, Tour $tour)
     {
         $updated_tour = $tour->update($request->only('name', 'start_date', 'end_date', 'country_id', 'location_id', 'special_wishes'));
+
         if ($updated_tour) {
-            return redirect()->route('tours.index')
-                ->withSuccess(__('Tour updated successfully.'));
+
+            return response()->json(['Result' => 'Tour updated successfully.']);
 
         } else {
-            return redirect()->back()
-                ->with('error', "Tour didn't updated.");
+
+            return response()->json(['Result' => 'Operation failed.'], 400);
 
         }
     }
@@ -126,23 +138,27 @@ class TourController extends Controller
         $deleted_tour = $tour->delete();
 
         if ($deleted_tour) {
-            return redirect()->route('tours.index')
-                ->withSuccess(__('Tour deleted successfully.'));
+
+            return response()->json(['Result' => 'Tour deleted successfully.']);
 
         } else {
-            return redirect()->back()
-                ->with('error', "Tour didn't deleted.");
+
+            return response()->json(['Result' => 'Operation failed.'], 400);
+
         }
     }
 
     public function upload(Request $request, Tour $tour)
     {
         if ($request->hasFile('photo')) {
+
             $filename = $request->photo->getClientOriginalName();
 
             $request->photo->storeAs('public/images/', $filename);
             $country->update(['photo' => $filename]);
+
         }
+
         return redirect()->route('tours.edit');
     }
 

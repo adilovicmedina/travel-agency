@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use App\Models\Tour;
 use App\Models\User;
@@ -19,20 +20,16 @@ class ReservationController extends Controller
             ->join('tours', 'reservations.tour_id', '=', 'tours.id')
             ->select('users.username as username', 'users.id as userID', 'tours.name as name', 'tours.start_date as start_date', 'tours.end_date as end_date', 'tours.id as tourID', 'reservations.total_price as total_price', 'reservations.number_of_people as number_of_people', 'reservations.number_of_children as number_of_children', 'reservations.id as resID', 'reservations.special_wishes as special_wishes')
             ->paginate(10);
-        return view('reservations.index', compact('reservations'));
+        return response()->json($reservations);
     }
 
     public function create(Tour $tour)
     {
-        return view('reservations.create',
-            [
-                'tour' => $tour,
-            ]);
+        return response()->json(['tour' => $tour]);
     }
 
     public function checkout(Request $request, Tour $tour)
     {
-
         $request->validate([
             'number_of_people' => 'required|min:0',
             'number_of_children' => 'min:1|max:10',
@@ -48,25 +45,23 @@ class ReservationController extends Controller
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
             ]);
+
             Auth::loginUsingId($user);
         }
 
-        return view('reservations.checkout', [
-            'tour' => $tour,
-        ]);
-
+        return response()->json(['tour' => $tour]);
     }
 
-    public function store(Request $request, Tour $tour)
+    public function store(Request $request, Tour $tour, User $user)
     {
+
         $number_of_people = $request->number_of_people;
         $number_of_children = $request->number_of_children;
-
         $tour_special = unserialize($tour->special_wishes);
-
         $special_price = 0;
 
-        foreach ($request->special as $key => $special) {
+        foreach (explode(",", $request->special) as $key => $special) {
+
             $special_price += (int) $tour_special[$special]['price'];
             $special_wishes[] = ['name' => $tour_special[$special]['name'], 'price' => $tour_special[$special]['price']];
 
@@ -80,20 +75,25 @@ class ReservationController extends Controller
             'number_of_children' => $number_of_children,
             'number_of_people' => $number_of_people,
             'tour_id' => $tour->id,
-            'user_id' => Auth::id(),
+            'user_id' => $user->id,
             'total_price' => $total_price,
             'special_wishes' => $special_wishes_serialize,
         ]);
 
-        return redirect()
-            ->route('tours.tour', $tour->id)
-            ->withSuccess(__('Reservation created successfully.'));
+        if ($reservation) {
 
+            return response()->json(['Result' => 'Reservation created successfully.']);
+
+        } else {
+
+            return response()->json(['Result' => 'Operation failed.'], 400);
+
+        }
     }
 
     public function edit(User $user, Reservation $reservation, Tour $tour)
     {
-        return view('reservations.edit', [
+        return response()->json([
             'reservation' => $reservation,
             'user' => $user,
             'tour' => $tour,
@@ -102,7 +102,7 @@ class ReservationController extends Controller
 
     public function update(Request $request, User $user, Reservation $reservation, Tour $tour)
     {
-        $reservation->update($request->only('number_of_people', 'number_of_children', 'total_price'));
+        $updated_reservation = $reservation->update($request->only('number_of_people', 'number_of_children', 'total_price'));
         $number_of_people = $request->number_of_people;
         $number_of_children = $request->number_of_children;
 
@@ -110,17 +110,30 @@ class ReservationController extends Controller
             ->where('id', $reservation->id)
             ->update(array('total_price' => (($tour->price * $number_of_people) + ($tour->price_for_children * $number_of_children))));
 
-        return redirect()
-            ->route('reservations.index', $user->id)
-            ->withSuccess(__('Reservation updated successfully.'));
+        if ($updated_reservation) {
+
+            return response()->json(['Result' => 'Reservation updated successfully.']);
+
+        } else {
+
+            return response()->json(['Result' => 'Operation failed.'], 400);
+
+        }
     }
 
     public function delete(User $user, Reservation $reservation)
     {
-        $reservation->delete();
+        $deleted_reservation = $reservation->delete();
 
-        return redirect()->route('reservations.index', $user->id)
-            ->withSuccess(__('Reservation deleted successfully.'));
+        if ($deleted_reservation) {
+
+            return response()->json(['Result' => 'Reservation deleted successfully.']);
+
+        } else {
+
+            return response()->json(['Result' => 'Operation failed.'], 400);
+
+        }
     }
 
     public function show()
@@ -130,13 +143,14 @@ class ReservationController extends Controller
             ->join('tours', 'reservations.tour_id', '=', 'tours.id')
             ->select('users.username as username', 'users.id as userID', 'tours.name as name', 'tours.start_date as start_date', 'tours.end_date as end_date', 'tours.id as tourID', 'reservations.total_price as total_price', 'reservations.number_of_people as number_of_people', 'reservations.number_of_children as number_of_children', 'reservations.id as resID')
             ->paginate(10);
-        return view('reservations.show', compact('reservations'));
+
+        return response()->json($reservations);
 
     }
 
     public function show_one(User $user, Reservation $reservation, Tour $tour)
     {
-        return view('reservations.show_one', [
+        return response()->json([
             'user' => $user,
             'reservation' => $reservation,
             'tour' => $tour,
